@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1748" height="2083" viewBox="0 0 1748 2083">
+  <defs>
+    <filter id="Path_2815" x="532.84" y="941.955" width="78.171" height="81.706" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_2815-2" x="1136.989" y="941.955" width="78.171" height="81.706" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_591" data-name="Group 591" transform="translate(-86 -2973)">
+    <g id="Rectangle_531" data-name="Rectangle 531" transform="translate(86 2973)" fill="none" stroke="#2986ff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="4">
+      <rect width="1748" height="982" stroke="none"/>
+      <rect x="2" y="2" width="1744" height="978" fill="none"/>
+    </g>
+    <g id="Rectangle_533" data-name="Rectangle 533" transform="translate(86 3966)" fill="none" stroke="#2986ff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="4">
+      <rect width="1748" height="1090" stroke="none"/>
+      <rect x="2" y="2" width="1744" height="1086" fill="none"/>
+    </g>
+    <g id="Rectangle_532" data-name="Rectangle 532" transform="translate(102 2987)" fill="none" stroke="#2986ff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="4">
+      <rect width="1716" height="954" stroke="none"/>
+      <rect x="2" y="2" width="1712" height="950" fill="none"/>
+    </g>
+    <g id="Group_481" data-name="Group 481" transform="translate(1143.84 953.115)">
+      <g transform="matrix(1, 0, 0, 1, -1057.84, 2019.88)" filter="url(#Path_2815)">
+        <path id="Path_2815-3" data-name="Path 2815" d="M-2.207,21.576,10.986-1.274" transform="translate(580.8 986.4) rotate(150)" fill="none" stroke="#2986ff" stroke-linecap="round" stroke-width="20"/>
+      </g>
+      <ellipse id="Ellipse_109" data-name="Ellipse 109" cx="5" cy="5" rx="5" ry="5" transform="translate(-490.839 2978.885)" fill="#fff"/>
+      <ellipse id="Ellipse_110" data-name="Ellipse 110" cx="5" cy="5" rx="5" ry="5" transform="translate(-490.839 2993.885)" fill="#fff"/>
+      <ellipse id="Ellipse_111" data-name="Ellipse 111" cx="5" cy="5" rx="5" ry="5" transform="translate(-490.839 3008.885)" fill="#fff"/>
+    </g>
+    <g id="Group_482" data-name="Group 482" transform="translate(1747.988 953.115)">
+      <g transform="matrix(1, 0, 0, 1, -1661.99, 2019.88)" filter="url(#Path_2815-2)">
+        <path id="Path_2815-4" data-name="Path 2815" d="M-2.207,21.576,10.986-1.274" transform="translate(1184.95 986.4) rotate(150)" fill="none" stroke="#2986ff" stroke-linecap="round" stroke-width="20"/>
+      </g>
+      <ellipse id="Ellipse_109-2" data-name="Ellipse 109" cx="5" cy="5" rx="5" ry="5" transform="translate(-490.839 2978.885)" fill="#fff"/>
+      <ellipse id="Ellipse_110-2" data-name="Ellipse 110" cx="5" cy="5" rx="5" ry="5" transform="translate(-490.839 2993.885)" fill="#fff"/>
+      <ellipse id="Ellipse_111-2" data-name="Ellipse 111" cx="5" cy="5" rx="5" ry="5" transform="translate(-490.839 3008.885)" fill="#fff"/>
+    </g>
+    <rect id="Rectangle_534" data-name="Rectangle 534" width="580" height="53" transform="translate(670 3930)" fill="#fff"/>
+  </g>
+</svg>
