@@ -188,10 +188,10 @@ class MainController extends Controller
 
         ])->where('category_id' , $request->cat_id)->paginate(5);
 
-        if(!isset($places[0])){
-            $places = Place::latest()->where('status' , 1)->paginate(5);
-
-        }
+//        if(!isset($places[0]) && $request->region_id){
+//            $places = Place::latest()->where('status' , 1)->paginate(5);
+//
+//        }
 
 
         if(isset($places) ) {

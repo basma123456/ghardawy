@@ -26,7 +26,7 @@ class BranchRequest extends FormRequest
         return [
             'place_id' => 'integer|min:1|exists:places,id',
             'region_id' => 'integer|min:1',
-            'place_region' => 'required|unique:place_regions|max:255',
+//            'place_region' => 'required|unique:place_regions|max:255',
             'address_ar' => 'string|min:3|max:180',
             'address_en' => 'string|min:3|max:180',
             'address_ru' => 'string|min:3|max:180',

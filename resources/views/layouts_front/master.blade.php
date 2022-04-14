@@ -1,4 +1,4 @@
-
+@include('layouts_front.head')
 @include('layouts_front.header')
 
 @yield('css')

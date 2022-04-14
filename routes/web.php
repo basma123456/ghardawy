@@ -113,8 +113,8 @@ Route::group(
         Route::resource('/main' , 'Admin\MainPageController');
         Route::resource('/sellers' , 'Admin\SellerController');
         Route::get('/unseen', 'Admin\SellerController@unseenSellers');
-        Route::get('/un_active', 'Admin\SellerController@unActiveSellers');
-        Route::get('/active', 'Admin\SellerController@ActiveSellers');
+        Route::get('/un_active/sellers', 'Admin\SellerController@unActiveSellers');
+        Route::get('/active/sellers', 'Admin\SellerController@ActiveSellers');
         Route::get('/dashboard', function () {
             return view('dashboard');
         });

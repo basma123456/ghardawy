@@ -161,7 +161,10 @@ font-family: Var(--txt-family-lato-regular) !important;
 }
 
 .head-border {
-    background-image: url("{{asset('assets/images_bg_front/Group/590.svg')}}");
+    /*background-image: url(assets/images_bg_front/Group/590.svg);*/
+    background-image: url(../../assets/images_bg_front/Group_590.svg);
+
+    background-repeat: no-repeat;
     background-position: center;
 }
 
@@ -175,7 +178,6 @@ font-family: Var(--txt-family-lato-regular) !important;
 
 
 /* ------------------- start index Page  ------------------- */
-
 
 /* start header */
 
@@ -202,13 +204,52 @@ font-family: Var(--txt-family-lato-regular) !important;
 
 
 /* start main */
+.main_img{
+    height:37em;
+}
 
 
 /* main category */
 
+.main .longImages {
+    height: 46em;
+
+}
+
+.main .bottom_big_cat{
+    height: 41em;
+}
+
+.main .bottom_small_cats{
+    height: 19em;
+}
+
+.main .lower_cats{
+    height: 23em;
+    width: 100%;
+
+}
+
+.main .best_places{
+    height: 24.5em;
+    width: 100%;
+
+}
+
+
+.main .screenImg {
+    height: 56em;
+
+}
+
+
 .main img {
     filter: brightness(.5);
+    width: 100%;
+    border-radius: 10px;
+
 }
+
 
 
 /* join  */
@@ -246,7 +287,7 @@ font-family: Var(--txt-family-lato-regular) !important;
 @media (min-width: 991px) {
     .how .container {
         height: 500px;
-        background: url("{{asset('assets/images_bg_front/img/Group/593.svg')}}");
+        background: url(../../assets/images_bg_front/img/Group_593.svg);
         background-repeat: no-repeat;
         background-position: center;
     }
@@ -279,6 +320,43 @@ font-family: Var(--txt-family-lato-regular) !important;
 
 /* ------------------- start product Page  ------------------- */
 
+.big_carousel{
+    height: 33em;
+    width: 100%;
+}
+
+.small_carousel{
+    height: 19em;
+    width: 100%;
+
+}
+
+.place_lower_img{
+    height: 14em;
+    width: 100%;
+}
+
+.menu_img{
+    height: 37em;
+    border-radius: 47px !important;
+}
+
+.h_li{
+    height: 7em;
+}
+
+.h_li .h_small_img{
+    height: 6em;
+}
+
+.ad_img{
+    height: 27em;
+}
+.ad_h{
+    height: 4em;
+}
+
+
 @media(min-width: 992px) {
     .rate {
         width: 30%;
@@ -307,7 +385,7 @@ form.border {
 /* start footer */
 
 footer {
-    background: url("{{asset('assets/images_bg_front/Group/486.png')}}");
+    background: url(../../assets/images_bg_front/Group_486.png);
     background-size: cover;
 }
 

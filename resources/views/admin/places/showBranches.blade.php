@@ -33,7 +33,6 @@
                                             <th>#</th>
                                             <th>{{trans('Students_trans.place')}}</th>
                                             <th>{{trans('Students_trans.region')}}</th>
-                                            <th>{{trans('Students_trans.status')}}</th>
                                             <th>{{trans('Students_trans.admin_or_super_admin')}}</th>
                                             <th>{{trans('Students_trans.desc')}}</th>
                                             <th>{{trans('Students_trans.phone')}}</th>
@@ -50,7 +49,6 @@
                                                     <td>{{$placeRegion->regions->government }} , {{$placeRegion->regions->city}} , {{$placeRegion->regions->district}}</td>
 
 
-                                                    <td>{{$placeRegion->status ===1 ? 'Active' : 'Un Active'}}</td>
                                                     <td>{{$placeRegion->admin_id > 0 ? 'Admin Is ' .$placeRegion->admin_id:(
                                                 $placeRegion->super_admin_id > 0 ? 'Super Admin Is ' .$placeRegion->super_admin_id:'')
                                                 }}</td>

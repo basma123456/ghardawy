@@ -45,13 +45,13 @@ class PlaceRegionController extends Controller
      */
     public function store(BranchRequest $request)
     {
-
+//            dd($request->all());
         $place_region = PlaceRegion::create([
             'place_id' => $request->place_id ,
             'address' => ['ar' => $request->address_ar, 'en' => $request->address_en , 'ru' => $request->address_ru],
             'desc' => ['ar' => $request->desc_ar, 'en' => $request->desc_en , 'ru' => $request->desc_ru],
             'phone' => $request->phone  ,
-            'place_region' => $request->place_region,
+//            'place_region' => $request->place_region,
             'region_id' => $request->region_id ,
             'admin_id' => $this->getGuard() === 'admin' ? $this->getGuardId() : null,
             'super_admin_id' => $this->getGuard() === 'super-admin' ? $this->getGuardId() : null,

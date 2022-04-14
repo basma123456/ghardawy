@@ -13,9 +13,6 @@
 
 
 
-@section('header')
-@include('layouts_front.nav')
-@endsection
 
 @section('main')
 <section class="main">
@@ -54,7 +51,7 @@
                                 <a href="{{url('place_page/')}}/{{$place->id}}">
                                     <div class="noImageStyle">
 {{--                                        <img src="{{asset('assets/images_front/places/'.$place->photos()[0])}}" alt="">--}}
-                                        <img class="placeImage" src="{{asset($place->photos()[0] ? 'assets/images_front/places/'.$place->photos()[0] : 'assets/images_front/places/no_image.png')}}"  />
+                                        <img class="placeImage" src="{{asset($place->photos()[0] ? 'assets/images_front/places/'.$place->photos()[1] : 'assets/images_front/places/no_image.png')}}"  />
 
                                     </div>
                                 </a>
@@ -62,7 +59,7 @@
 {{--                                    <img src="{{asset('assets/images_front/places/'.$place->photos()[1])}}" class="rounded-circle px-1" style="width: 55px; height: 50px;" alt="">--}}
                                     <h2 class="text-white m-0 widthPlaceTitle">{{$place->title}}</h2>
 
-                                    <img src="{{asset($place->photos()[1] ? 'assets/images_front/places/'.$place->photos()[1] : 'assets/images_front/places/no_image.png')}}"  class="rounded-circle px-1" style="width: 55px; height: 50px;" alt=""/>
+                                    <img src="{{asset($place->photos()[1] ? 'assets/images_front/places/'.$place->photos()[0] : 'assets/images_front/places/no_image.png')}}"  class="rounded-circle px-1" style="width: 55px; height: 50px;" alt=""/>
                                 </div>
                                 <div class="uk-position-top-right d-flex px-3">
                                     <h2 class="text-white">like {{$place->likes}}</h2>

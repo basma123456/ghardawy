@@ -5,9 +5,6 @@
     @toastr_css
 @endsection
 
-@section('header')
-    @include('layouts_front.nav')
-@endsection
 
 
 @section('main')
@@ -27,7 +24,7 @@
                     <div class="about-carousel-item carousel-item  {{$i === 2 ? 'active' : ''}}">
                         <img src="{{asset('assets/images_front/news/')}}/{{$last->image}}" style="object-fit: cover;height: 500px;" class="d-block w-100">
                         <div class="carousel-caption uk-position-top">
-                            <p class="text-black uk-text-bolder txt-size-18">{{$last->created_at}}</p>
+                            <p class="text-black uk-text-bolder txt-size-18">{{ substr($last->created_at,0,10) }}</p>
                         </div>
                         <div class="carousel-caption uk-position-center shadow p-3 bg-shadow rounded w-75">
                             <p class="text-black uk-text-bolder txt-size-18">{{$last->label}}</p>
@@ -73,20 +70,25 @@
                             <li class="txt-size-md-10">
                                 <div class="container pt-5">
                                     @foreach($newscat->news as $m)
+                                        @isset( $loop->parent->even)
                                         @if ($loop->even && $loop->parent->even)
-
                                             <p>{{$m->main_p }}</p>
                                             <p>{{$m->first_p }}</p>
                                             <p>{{$m->second_p }}</p>
                                             <p>{{$m->third_p }}</p>
-                                     @elseif($loop->even && $loop->parent->odd)
+                                            @endif
+                                        @endisset
 
+
+                                    @isset( $loop->parent->odd)
+                                        @if($loop->even && $loop->parent->odd)
                                             <p>{{$m->main_p }}</p>
                                             <p>{{$m->first_p }}</p>
                                             <p>{{$m->second_p }}</p>
                                             <p>{{$m->third_p }}</p>
-
                                         @endif
+                                    @endisset
+
                                     @endforeach
 
                                 </div>
@@ -99,12 +101,14 @@
                         @foreach($newscats as $newscat)
                             <li>
                                 @foreach($newscat->news as $m)
+                                    @isset( $loop->parent)
                                     @if ($loop->even && $loop->parent->even)
                                         <img src="{{asset('assets/images_front/news/')}}/{{$m->image}}" alt="">
                                         @elseif($loop->even && $loop->parent->odd)
                                         <img src="{{asset('assets/images_front/news/')}}/{{$m->image}}" alt="">
 
                                     @endif
+                                    @endisset
                                 @endforeach
                             </li>
                         @endforeach
@@ -113,12 +117,14 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 order-2 order-md-1">
-                    <ul c   lass="uk-switcher switcher-container uk-margin">
+                    <ul class="uk-switcher switcher-container uk-margin">
                         @foreach($newscats as $newscat)
 
                             <li class="txt-size-md-10">
                                 <div class="container pt-5">
                                     @foreach($newscat->news as $m)
+                                        @isset( $loop->parent)
+
                                         @if ($loop->odd && $loop->parent->even)
 
                                             <p>{{$m->main_p }}</p>
@@ -134,6 +140,7 @@
 
 
                                         @endif
+                                        @endisset
                                     @endforeach
 
                                 </div>
@@ -147,13 +154,17 @@
 
                             <li>
                                 @foreach($newscat->news as $m)
-                                    @if ($loop->odd && $loop->parent->odd)
+                                        @isset( $loop->parent->odd )
+                                            @if ($loop->odd && $loop->parent->odd)
+                                                <img src="{{asset('assets/images_front/news/')}}/{{$m->image}}" alt="">
+                                            @endif
+                                        @endisset
 
-                                        <img src="{{asset('assets/images_front/news/')}}/{{$m->image}}" alt="">
-                                        @elseif($loop->odd && $parent->parent->even)
-                                        <img src="{{asset('assets/images_front/news/')}}/{{$m->image}}" alt="">
-
-                                    @endif
+                                        @isset ( $loop->parent->even )
+                                            @if($loop->odd && $loop->parent->even)
+                                                <img src="{{asset('assets/images_front/news/')}}/{{$m->image}}" alt="">
+                                            @endif
+                                        @endisset
                                 @endforeach
                             </li>
                         @endforeach

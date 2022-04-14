@@ -53,7 +53,7 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{route('branches.update' , $place , $placeRegion)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('places.add.regions.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
 {{--                                place_id region_id address desc phone admin_id super_admin_id--}}
 

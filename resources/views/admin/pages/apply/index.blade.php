@@ -23,8 +23,6 @@
                     <div class="col-xl-12 mb-30">
                         <div class="card card-statistics h-100">
                             <div class="card-body">
-                                <a href="{{route('apply_place.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
                                 <div class="table-responsive">
                                     <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -67,8 +65,8 @@
                                                             العمليات
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
-                                                            <a class="dropdown-item" href="{{route('news.edit' , $application->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>
+                                                            <a class="dropdown-item" href="{{route('apply_place.show',$application->id)}}"><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
+{{--                                                            <a class="dropdown-item" href="{{route('news.edit' , $application->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>--}}
                                                             <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                     data-target="#delete{{ $application->id }}"
                                                                     title="{{ trans('$application.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>

@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">
-                <img src="{{asset('/assets/images_front/bg_photos/')}}/{{$mains->bg_photo}}" class="w-100" alt="">
+                <img src="{{asset('/assets/images_front/bg_photos/')}}/{{$mains->bg_photo}}" class="w-100 main_img" alt="">
             </div>
             <form  method="get" action="{{route('get.cat.region')}}"   class="search col-lg-5 col-12 my-4 m-auto border border-primary p-0 shadow w-85-md">
                 <div class="d-flex justify-content-around">
@@ -65,14 +65,15 @@
                     ابحث عن طريق
                     <span class="txt-col-main">الاقسام</span>
                 </h3>
-{{--            </div>{{dd($frontCats)}}--}}
+            </div>
+{{--            {{dd($frontCats)}}--}}
             <div class="container">
                 @if(isset($frontCats['right_upper_cat']))
                 <div class="row">
                     <div class="uk-cover-container col-6">
                         <a href="{{url('places/'. $frontCats['right_upper_cat']->id)}}">
 
-                            <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['right_upper_cat']->image}}" alt="">
+                            <img class="longImages" src="{{asset('assets/images_front/category/')}}/{{$frontCats['right_upper_cat']->image}}" alt="">
                         </a>
                         <div class="uk-position-top-center pt-4 uk-panel">
                             <h1 class="text-white txt-size-sm-24">{{$frontCats['right_upper_cat']->title}}</h1>
@@ -86,7 +87,7 @@
                     </div>
                     <div class="uk-cover-container col-6">
                         <a href="{{url('places/'. $frontCats['left_upper_cat']->id)}}">
-                            <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['left_upper_cat']->image}}" alt="">
+                            <img class="longImages" src="{{asset('assets/images_front/category/')}}/{{$frontCats['left_upper_cat']->image}}" alt="">
                         </a>
                         <div class="uk-position-top-center pt-4 uk-panel">
                             <h1 class="text-white txt-size-sm-24">{{$frontCats['left_upper_cat']->title}}</h1>
@@ -107,7 +108,7 @@
 
             <div class="uk-cover-container">
                 <a href="{{url('places/')}}/{{$frontCats['screen_cat']->id}}">
-                    <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['screen_cat']->image}}" class="w-100" alt="">
+                    <img class="screenImg" src="{{asset('assets/images_front/category/')}}/{{$frontCats['screen_cat']->image}}" class="w-100" alt="">
                 </a>
                 <div class="uk-position-top-right pt-4 px-5 uk-panel">
                     <h1 class="text-white">{{$frontCats['screen_cat']->title}}</h1>
@@ -125,7 +126,7 @@
 
                     <div class="uk-cover-container col-8">
                         <a href="{{url('places/')}}/{{$frontCats['bottom_big_cat']->id}}">
-                            <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['bottom_big_cat']->image}}" class="w-100" alt="">
+                            <img  src="{{asset('assets/images_front/category/')}}/{{$frontCats['bottom_big_cat']->image}}" class="w-100 bottom_big_cat" alt="">
                         </a>
                         <div class="uk-position-top-center pt-4 uk-panel">
                             <h1 class="text-white txt-size-sm-24">{{$frontCats['bottom_big_cat']->title}}</h1>
@@ -144,7 +145,7 @@
                             @if(isset($frontCats['bottom_left_upper_cat']))
 
                             <div class="uk-cover-container">
-                                <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['bottom_left_upper_cat']->image}}" class="w-100" style=" object-fit: cover;" alt="">
+                                <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['bottom_left_upper_cat']->image}}" class="w-100 bottom_small_cats" style=" object-fit: cover;" alt="">
                                 <div class="uk-position-top-center pt-4 uk-panel">
                                     <h1 class="text-white uk-text-bold txt-size-md-12">{{$frontCats['bottom_left_upper_cat']->title}}</h1>
                                 </div>
@@ -161,7 +162,7 @@
                             @if(isset($frontCats['bottom_left_lower_cat']))
 
                             <div class="uk-cover-container">
-                                <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['bottom_left_lower_cat']->image}}" class="w-100 pt-5 h-50" style=" object-fit: cover;" alt="">
+                                <img src="{{asset('assets/images_front/category/')}}/{{$frontCats['bottom_left_lower_cat']->image}}" class="w-100 mt-5 bottom_small_cats" style=" object-fit: cover;" alt="">
                                 <div class="uk-position-top-center pt-4 uk-panel">
                                     <h1 class="text-white uk-text-bold txt-size-md-12 pt-5">{{$frontCats['bottom_left_lower_cat']->title}}</h1>
                                 </div>
@@ -183,7 +184,7 @@
                             <div class="uk-cover-container col-md-4 col-6 my-3">
                         <div class="m-0 m-md-3 m-sm-4">
                             <a href="{{url('places/')}}/{{$cat->id}}">
-                                <img class="h-cat" src="{{asset('assets/images_front/category/')}}/{{$cat->image}}" alt="">
+                                <img class="lower_cats" src="{{asset('assets/images_front/category/')}}/{{$cat->image}}" alt="">
                             </a>
 
                         </div>
@@ -217,12 +218,12 @@
                         <div class="uk-cover-container col-md-6 col-12 my-3">
                             <a href="{{url('place_page/')}}/{{$addition->place->id}}">
                                 <div>
-                                    <img src="{{asset('assets/images_front/places/')}}/{{$addition->place->photos()[0]}}" alt="">
+                                    <img class="best_places" src="{{asset('assets/images_front/places/')}}/{{$addition->place->photos()[1]}}" alt="">
                                 </div>
                             </a>
                             <div class="uk-position-top-left d-flex mx-2 px-3">
                                 <h2 class="text-white m-0 widthPlaceTitle">{{$addition->title}}</h2>
-                                <img src="{{asset('assets/images_front/places/')}}/{{$addition->place->photos()[1]}}" class="rounded-circle px-1" style="width: 55px; height: 50px;" alt="">
+                                <img src="{{asset('assets/images_front/places/')}}/{{$addition->place->photos()[0]}}" class="rounded-circle px-1" style="width: 55px; height: 50px;" alt="">
                             </div>
                             <div class="uk-position-top-right d-flex px-3">
                                 <h2 class="text-white">اعجاب {{$addition->place->likes}}</h2>

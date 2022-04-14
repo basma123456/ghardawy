@@ -5,9 +5,6 @@
     @toastr_css
 @endsection
 
-@section('header')
-    @include('layouts_front.nav')
-@endsection
 
 
 @section('main')
@@ -24,8 +21,7 @@
                             @if($key != 6)
 
                         <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                            {{$key + 1}}
-                            <img src="{{asset('assets/images_front/places/')}}/{{$photos[$key + 1]}}" class="d-block w-100" alt="...">
+                            <img src="{{asset('assets/images_front/places/')}}/{{$photos[$key + 1]}}" class="d-block w-100 big_carousel" alt="...">
                         </div>
                             @endif
                             @endforeach
@@ -39,8 +35,7 @@
                         @foreach($photos as $key1 => $val1)
 
                         <div class="carousel-item  {{$key1 == 0 ? 'active' : ''}}">
-                            {{$key1}}
-                            <img src="{{asset('assets/images_front/places/')}}/{{$photos[$key1]}}" class="d-block w-100" alt="...">
+                            <img src="{{asset('assets/images_front/places/')}}/{{$photos[$key1]}}" class="d-block w-100 small_carousel" alt="...">
                         </div>
                             @endforeach
                     </div>
@@ -84,10 +79,10 @@
             <!-- 2 imgs for pleace -->
             <div class="col-12 col-md-6 my-2 my-md-5 row">
                 <div class="col-6">
-                    <img src="{{asset('assets/images_front/places/')}}/{{$place->photos()[5]}}" alt="">
+                    <img class="place_lower_img" src="{{asset('assets/images_front/places/')}}/{{$place->photos()[5]}}" alt="">
                 </div>
                 <div class="col-6">
-                    <img src="{{asset('assets/images_front/places/')}}/{{$place->photos()[4]}}" alt="">
+                    <img class="place_lower_img" src="{{asset('assets/images_front/places/')}}/{{$place->photos()[4]}}" alt="">
                 </div>
             </div>
         </div>
@@ -98,14 +93,14 @@
             <div class="row my-5">
                 <div class="col-12 col-md-7 my-md-2 my-4 order-1 order-md-0">
                     @foreach($place->menu() as $menu)
-                    <img src="{{asset('assets/images_front/places/')}}/{{$menu}}" class="w-100 py-3" alt="">
+                    <img src="{{asset('assets/images_front/places/')}}/{{$menu}}" class="w-100 py-3 menu_img" alt="">
                     @endforeach
                     <!-- comments -->
                     <div class="uk-card uk-card-primary uk-width-2-2@m">
                         <div class="uk-card-header">
                             <div class="uk-grid-small uk-flex-middle" uk-grid>
                                 <div class="uk-width-auto">
-                                    <img class="uk-border-circle" width="40" height="40" src="{{asset('assets/images_bg_front/pexels-ray-piedra-1478442.png')}}">
+                                    <img   class="rounded-circle px-1" style="width: 55px; height: 50px;" src="{{asset('assets/images_bg_front/pexels-ray-piedra-1478442.png')}}">
                                 </div>
                                 <div class="uk-width-expand">
                                     <h3 class="uk-card-title uk-margin-remove-bottom">Mohamed Mahmoud Etman</h3>
@@ -131,7 +126,7 @@
                         <div class="uk-card-header">
                             <div class="uk-grid-small uk-flex-middle" uk-grid>
                                 <div class="uk-width-auto">
-                                    <img class="uk-border-circle" width="40" height="40" src="{{asset('assets/images_bg_front/pexels-ray-piedra-1478442.png')}}">
+                                    <img  class="rounded-circle px-1" style="width: 55px; height: 50px;" src="{{asset('assets/images_bg_front/pexels-ray-piedra-1478442.png')}}">
                                 </div>
                                 <div class="uk-width-expand">
                                     <h3 class="uk-card-title uk-margin-remove-bottom">Mohamed Mahmoud Etman</h3>
@@ -161,16 +156,16 @@
                         <!--/**********special parts *********-->
                         @php $i = 0; @endphp
                         @foreach($additions as $key => $val)
-                            @if($additions[$key]-> type === 'special' &&  $i < 3))
+                            @if($additions[$key]-> type === 'special' &&  $i < 3)
 
-                            <h2 class="bg-danger"> {{$i++}}</h2>
+                            @php $i++ @endphp
 
-                            <li class="list-group-item bg-main d-flex justify-content-between align-items-start">
+                            <li class="list-group-item bg-main d-flex justify-content-between align-items-start h_li">
                             <div class="text-white ms-2 me-auto">
                                 <div class="fw-bold">{{$additions[$key]->title}}</div>
                                 {{$additions[$key]->desc}}
                             </div>
-                            <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[0]}}" class="w-25" alt="">
+                            <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="w-25 h_small_img" alt="">
                         </li>
                             @endif
                         @endforeach
@@ -180,12 +175,12 @@
                     <!--/**********ads parts *********-->
                     @php $i = 0; @endphp
                     @foreach($additions as $key => $val)
-                        @if($additions[$key]-> type === 'ads' &&  $i < 3))
+                        @if($additions[$key]-> type === 'ads' &&  $i < 3)
 
-                        <h2 class="bg-danger"> {{$i++}}</h2>
+                        @php $i++ @endphp
 
-                        <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[0]}}" class="py-3" alt="">
-                    <h3 class="text-white">{{$additions[$key]->desc}}.</h3>
+                        <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="py-3 ad_img" alt="">
+                    <h3 class="text-white ad_h">{{$additions[$key]->desc}}.</h3>
                     <hr>
                     @endif
                 @endforeach
@@ -199,14 +194,14 @@
                         <!--/**********best places parts *********-->
                         @php $i = 0; @endphp
                         @foreach($additions as $key => $val)
-                            @if($additions[$key]-> type === 'best' &&  $i < 3))
-                            <h2 class="bg-danger"> {{$i++}}</h2>
-                            <li class="list-group-item bg-main d-flex justify-content-between align-items-start">
+                            @if($additions[$key]-> type === 'best' &&  $i < 3)
+                            @php $i++ @endphp
+                            <li class="list-group-item bg-main d-flex justify-content-between align-items-start h_li">
                             <div class="text-white ms-2 me-auto">
                                 <div class="fw-bold">{{$additions[$key]->title}}</div>
                                 {{$additions[$key]->desc}}
                             </div>
-                            <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[0]}}" class="w-25" alt="">
+                            <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="w-25 h_small_img" alt="">
                         </li>
                             @endif
                         @endforeach

@@ -6,6 +6,12 @@
             <div class="scrollbar side-menu-bg">
                 <ul class="nav navbar-nav side-menu" id="sidebarnav">
                     <!-- menu item Dashboard-->
+                    <!-- menu item todo-->
+                    <li>
+                        <a href="{{'/super-admin/dashboard'}}"><i class="ti-menu-alt"></i><span class="right-nav-text">Dashboard</span> </a>
+                    </li>
+                    <!-- menu item chat-->
+
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard">
                             <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">{{trans('sidebar.applications')}}</span>
@@ -62,31 +68,69 @@
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
                             <div class="pull-left"><i class="ti-calendar"></i><span
-                                    class="right-nav-text">calendar</span></div>
+                                    class="right-nav-text">sellers</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="calendar">Events Calendar </a> </li>
-                            <li> <a href="calendar-list">List Calendar</a> </li>
+                            <li> <a href="{{'/super-admin/active/sellers'}}">Active sellers </a> </li>
+                            <li> <a href="{{'/super-admin/un_active/sellers'}}">DeActive sellers</a> </li>
                         </ul>
                     </li>
                     <!-- menu item todo-->
                     <li>
-                        <a href="todo-list"><i class="ti-menu-alt"></i><span class="right-nav-text">Todo
-                                list</span> </a>
+                        <a href="{{'/super-admin/roles'}}"><i class="ti-menu-alt"></i><span class="right-nav-text">roles</span> </a>
                     </li>
                     <!-- menu item chat-->
                     <li>
-                        <a href="chat-page"><i class="ti-comments"></i><span class="right-nav-text">Chat
+                        <a href="{{'/super-admin/main'}}"><i class="ti-comments"></i><span class="right-nav-text">main
                             </span></a>
                     </li>
                     <!-- menu item mailbox-->
                     <li>
-                        <a href="mail-box"><i class="ti-email"></i><span class="right-nav-text">Mail
+                        <a href="{{'/super-admin/category'}}"><i class="ti-email"></i><span class="right-nav-text">category
                                 box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
                     </li>
                     <!-- menu item Charts-->
+                    <!-- menu item mailbox-->
+                    <li>
+                        <a href="{{'/super-admin/places'}}"><i class="ti-email"></i><span class="right-nav-text">places
+                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+                    <!-- menu item Charts-->
+                    <li>
+                        <a href="{{'/super-admin/about_page'}}"><i class="ti-email"></i><span class="right-nav-text">about_page
+                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+                    <!-- menu item Charts-->
+                    <!-- menu item Charts-->
+                    <li>
+                        <a href="{{'/super-admin/regions'}}"><i class="ti-email"></i><span class="right-nav-text">regions
+                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+                    <!-- menu item Charts-->
+
+                    <li>
+                        <a href="{{'/super-admin/additions'}}"><i class="ti-email"></i><span class="right-nav-text">additions
+                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+                    <!-- menu item Charts-->
+
+
+                    <li>
+                        <a href="{{'/super-admin/news'}}"><i class="ti-email"></i><span class="right-nav-text">news
+                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+                    <!-- menu item Charts-->
+
+                    <li>
+                        <a href="{{'/super-admin/newscats'}}"><i class="ti-email"></i><span class="right-nav-text">newscats
+                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+                    <!-- menu item Charts-->
+
+
+
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#chart">
                             <div class="pull-left"><i class="ti-pie-chart"></i><span
