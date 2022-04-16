@@ -14,41 +14,17 @@ class Main extends UnicodeModel
     protected $guarded = [];
 
 
-    public function cats($foreignId)
+    public function cats()
     {
-        return$this->hasOne(Category::class , $foreignId);
+        return Category::select('id' , 'image' , 'title')->find([$this->left_upper_cat , $this->right_upper_cat , $this->screen_cat , $this->bottom_big_cat ,$this->bottom_left_upper_cat , $this->bottom_left_lower_cat]);
     }
 
 
-    public function left_upper_cat()
-    {
-        return Category::find($this->left_upper_cat);
-    }
 
-    public function right_upper_cat()
-    {
-        return Category::find($this->right_upper_cat);
-    }
 
-    public function screen_cat()
-    {
-        return Category::find($this->screen_cat);
-    }
 
-    public function bottom_big_cat()
-    {
-        return Category::find($this->bottom_big_cat);
-    }
 
-    public function bottom_left_upper_cat()
-    {
-        return Category::find($this->bottom_left_upper_cat);
-    }
 
-    public function bottom_left_lower_cat()
-    {
-        return Category::find($this->bottom_left_lower_cat);
-    }
 
 
 }

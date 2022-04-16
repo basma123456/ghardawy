@@ -62,7 +62,14 @@
                                     <img src="{{asset($place->photos()[1] ? 'assets/images_front/places/'.$place->photos()[0] : 'assets/images_front/places/no_image.png')}}"  class="rounded-circle px-1" style="width: 55px; height: 50px;" alt=""/>
                                 </div>
                                 <div class="uk-position-top-right d-flex px-3">
-                                    <h2 class="text-white">like {{$place->likes}}</h2>
+                                    @php
+                                    foreach($place->users_liked_places as $k) {
+                                            if($k->pivot->liked_status === 1){
+                                            $likes[] = $k->pivot->liked_status;
+                                            }
+                                        }
+                                        @endphp
+                                    <h2 class="text-white">like {{$place->likes + count($likes)}}</h2>
                                 </div>
                                 <div class="uk-position-bottom-center d-flex align-items-baseline pb-4 uk-panel">
                                     <p class="text-white text-center p-3 p-md-4 p-sm-5">{{$place->desc}}.</p>

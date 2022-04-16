@@ -25,7 +25,9 @@ class MainPageController extends Controller
      */
     public function index()
     {
-        $mains = Main::latest()->get();
+
+        $mains = Main::latest()->first();
+        $cats =$mains->cats();
         $cats = Category::latest()->get();
         return view('admin.pages.main_page.index' , ['mains' => $mains , 'cats' => $cats]);
     }
@@ -54,6 +56,11 @@ class MainPageController extends Controller
 
             $photo = $this->saveImage($request->bg_photo, '/assets/images_front/bg_photos', '1');
 
+            $oldMains = Main::latest()->first();
+            if(isset($oldMains)){
+                $oldMains->delete();
+            }
+
             $main = Main::create([
                 'title1' => ['ar' => $request->title_ar, 'en' => $request->title_en, 'ru' => $request->title_ru],
                 'title2' => ['ar' => $request->title2_ar, 'en' => $request->title2_en, 'ru' => $request->title2_ru],
@@ -70,24 +77,6 @@ class MainPageController extends Controller
                 'bottom_left_lower_cat' => $request->bottom_left_lower_cat,
                 'bg_photo' => $photo,
             ]);
-
-
-//            $about = About::create([
-//                'title1' => 'hh',
-//                'title2' => 'hh',
-//                'top_desc' => 'hh',
-//                'left_desc' => 'hh',
-//                'middle_desc' => 'hh',
-//                'right_desc' => 'hh',
-//                'website' => $request->website,
-//                'left_upper_cat' => $request->left_upper_cat,
-//                'right_upper_cat' => $request->right_upper_cat,
-//                'screen_cat' => $request->screen_cat,
-//                'bottom_big_cat' => $request->bottom_big_cat,
-//                'bottom_left_upper_cat' => $request->bottom_left_upper_cat,
-//                'bottom_left_lower_cat' => $request->bottom_left_lower_cat,
-//                'bg_photo' => $photo,
-//            ]);
 
 
 

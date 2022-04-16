@@ -24,17 +24,17 @@ class PlaceController extends Controller
     public function index($id)
     {
 
-        $place = Place::with('comments')->where('status' , 1)->find($id);
-//        dd($place->users_liked_places->sum('pivot.liked_status'));
+        $one = 1;
+        $place = Place::with('users_liked_places')->with(['comments' =>
+            function($query) use ($one){
+                $query->where('status' , $one);
+            }
+        ])->where('status' , 1)->find($id);
          $place != null ? $photos = $place->photos() :$photos = null;
          $additions = Additional::with('place')->where('status' , 1)->latest()->get();
 
-        $likes = LikesUnlikesPlaces::where('place_id' , $id )->where('liked_status' , 1)->count();
-        $unlikes = LikesUnlikesPlaces::where('place_id' , $id )->where('unliked_status' , 1)->count();
-
-
             if($place != null && $photos != null) {
-                return view('front.place', ['place' => $place, 'photos' => $photos , 'additions' => $additions , 'id'=>$id , 'likes' => $likes , 'unlikes'=> $unlikes]);
+                return view('front.place', ['place' => $place, 'photos' => $photos , 'additions' => $additions , 'id'=>$id ]);
             }else{
                 return redirect('main');
             }
@@ -69,6 +69,7 @@ class PlaceController extends Controller
 
 
         /*****************************likes part********************************/
+        //it is acheckpoint input so i use the same name --likes-- for both inputs -likes input- and -unlikes input-
         $likedStatus = $request->likes == (int)1 ? (int)1 : (int)0;
         $unlikedStatus = $request->likes == (int)0 ? (int)1 : (int)0;
 
@@ -77,10 +78,10 @@ class PlaceController extends Controller
         /*****************************likes part********************************/
 //        $seminar->students->contains($student);
         if($likedStatus == (int)1 && $place->users_liked_places->contains(auth()->id())){
-            $place->category->likes =  $place->category->likes + 1;
+            $place->category->likes =  $place->category->getOriginal('likes') + 1;
 
         }elseif($unlikedStatus == (int)1){
-            $place->category->likes =  $place->category->likes - 1;
+            $place->category->likes =  $place->category->getOriginal('likes') - 1;
         }
         $place->push();
 

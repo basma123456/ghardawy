@@ -1,5 +1,68 @@
 @extends('layouts.master')
 @section('css')
+    <style>
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+        }
+
+        .about-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #474e5d;
+            color: white;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+        .container::after, .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+
+        .ImgClass{
+            max-height: 40em;
+            object-fit: cover;
+        }
+    </style>
     @toastr_css
 @section('title')
     {{trans('main_trans.list_students')}}
@@ -13,148 +76,324 @@
 <!-- breadcrumb -->
 @endsection
 @section('content')
+    {{--    {{dd($how_we_work_paragraphs)}}--}}
     <!-- row -->
+    <div class="about-section">
+        <h2>Main Page</h2>
+    </div>
+
+    <br>
+    <br>
+
+    <label class="btn btn-success">
+        <a href="{{url(route('main.create'))}}"> Add New One </a>
+    </label>
+    <label class="btn btn-primary">
+        <a href="{{url(route('main.edit' , $mains->id))}}"> Edit </a>
+    </label>
+    <label class="btn btn-danger">
+        <a href="{{url(route('main.destroy' , $mains->id))}}"> Delete </a>
+    </label>
+
+    <br>
+    <br>
+
+    <div class="row text-center">
+        {{--        <div  class="column">--}}
+        {{--        </div>--}}
+
+        {{--        <div  class="column">--}}
+        <div class="offset-1 col-10">
+            <div class="card w-100">
+                <img class="ImgClass" src="{{asset('/assets/images_front/bg_photos/')}}/{{$mains->bg_photo}}" alt="Jane" style="width:100%">
+                <div class="container">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        {{--        </div>--}}
+        {{--        ['upper_paragraphsAr'=>$upper_paragraphsAr ,'upper_paragraphsEn'=>$upper_paragraphsEn ,'upper_paragraphsRu'=>$upper_paragraphsRu ,'how_we_work_paragraphsAr'=>$how_we_work_paragraphsAr ,'how_we_work_paragraphsEn'=>$how_we_work_paragraphsEn ,'how_we_work_paragraphsRu'=>$how_we_work_paragraphsRu  ]);--}}
+
+
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <h3 class="alert alert-info w-50">Title1</h3>
 
     <div class="row">
-        <div class="col-md-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
-                    <div class="col-xl-12 mb-30">
-                        <div class="card card-statistics h-100">
-                            <div class="card-body">
-                                <a href="{{route('main.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
-                                <div class="table-responsive">
-                                    <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
-                                           data-page-length="50"
-                                           style="text-align: center">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>{{trans('Students_trans.title')}}</th>
-                                            <th>{{trans('Students_trans.about_page')}}</th>
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                            <li class="w-100 text-left p-2">{{$mains->getTranslation('title1', 'ar')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                            <li class="w-100 text-left p-2">{{$mains->getTranslation('title1', 'en')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                                            <th>{{trans('Students_trans.menu')}}</th>
-
-                                            <th>{{trans('Students_trans.status')}}</th>
-                                            <th>{{trans('Students_trans.admin_or_super_admin')}}</th>
-                                            <th>{{trans('Students_trans.likes')}}</th>
-                                            <th>{{trans('Students_trans.unlikes')}}</th>
-
-                                            <th>{{trans('Students_trans.Processes')}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @isset($mains)
-                                            @foreach($mains as $main)
-                                                <tr>
-                                                    <td></td>
-                                                    <td>{{$main->title}}</td>
-                                                    <td>{{$main->address}}</td>
-                                                    @if(is_array($main))
-                                                        @foreach($main as $img)
-                                                            <td><img src="{{asset('assets/images_front/places/')}}/{{$img}}" class="p-1" height="100" width="200" /></td>
-                                                        @endforeach
-                                                    @endif
-
-                                                    <td>
-                                                        @if(is_array($main))
-                                                            @foreach($main as $oneMenu)
-                                                                <img src="{{asset('assets/images_front/places/')}}/{{$oneMenu}}" class="p-1 py-2" height="100" width="200" />
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-
-                                                    <td>{{$main->status ===1 ? 'Active' : 'Un Active'}}</td>
-                                                    <td>{{$main->admin_id > 0 ? 'Admin Is ' .$main->admin_id:(
-                                                $main->super_admin_id > 0 ? 'Super Admin Is ' .$main->super_admin_id:'')
-                                                }}</td>
-                                                    <td>{{$main->likes}}</td>
-                                                    <td>{{$main->unlikes}}</td>
-                                                    <td>
-                                                        <div class="dropdown show">
-                                                            <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                العمليات
-                                                            </a>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
-                                                                <a class="dropdown-item" href="{{route('branches.show' , $main->id)}}"><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض الفروع </a>
-
-                                                                <a class="dropdown-item" href="{{route('places.edit' , $main->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>
-                                                                <a class="dropdown-item" href="{{route('places.add.regions' , $main->id)}}"><i style="color:green" class="fa fa-plus"></i>&nbsp;  اضافة فروع </a>
-                                                                <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
-                                                                        data-target="#delete{{ $main->id }}"
-                                                                        title="{{ trans('$main.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                            <li class="w-100 text-left p-2">{{$mains->getTranslation('title1', 'ru')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
 
+    </div>
 
-                                                <!----------------------------delete modal start------------------------------------->
-                                                <!-- delete_modal_Grade -->
-                                                <div class="modal fade" id="delete{{ $main->id }}" tabindex="-1" role="dialog"
-                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
-                                                                    id="exampleModalLabel">
-                                                                    {{ trans('$main.delete') }}
-                                                                </h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="{{ route('places.destroy', $main->id) }}" method="post">
-                                                                    {{ method_field('Delete') }}
-                                                                    @csrf
-                                                                    {{ trans('newss.warning') }}
-                                                                    <input id="id" type="hidden" name="id" class="form-control"
-                                                                           value="{{ $main->id }}">
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$main.close') }}</button>
-                                                                        <button type="submit"
-                                                                                class="btn btn-danger">{{ trans('$main.submit') }}</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+    <br><br>
+    <h3 class="alert alert-info w-50">Title2</h3>
 
-                                                <script>
-                                                    function destFunc() {
-                                                        var r = confirm('are you sure');
-                                                        if (r === true){
-                                                            window.location.href ='{{route("places.destroy" , $main->id)}}';            }
-                                                    }
-                                                </script>
-                                                <!-----------------------------delete modal end------------------------------------>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('title2', 'ar')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                                        @endforeach
-                                        @endisset
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('title2', 'en')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('title2', 'ru')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <br>
+    <br>
+
+
+    <h3 class="alert alert-info w-50">Top Description</h3>
+
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('top_desc', 'ar')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('top_desc', 'en')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('top_desc', 'ru')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <br>
+    <br>
+
+
+    <h3 class="alert alert-info w-50">Left Description</h3>
+
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('left_desc', 'ar')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('left_desc', 'en')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('left_desc', 'ru')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <br>
+    <br>
+
+
+    <h3 class="alert alert-info w-50">Middle Description</h3>
+
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('middle_desc', 'ar')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('middle_desc', 'en')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('middle_desc', 'ru')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <br>
+    <br>
+
+
+    <h3 class="alert alert-info w-50">Right Description</h3>
+
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('right_desc', 'ar')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('right_desc', 'en')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->getTranslation('right_desc', 'ru')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <br>
+    <br>
+
+
+    <h3 class="alert alert-info w-50">Website</h3>
+
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">{{$mains->website}}</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <br>
+    <br>
+
+    <h3 class="alert alert-info w-50">Categories</h3>
+
+    <div class="row">
+        @foreach($cats as $cat)
+        <div class="column">
+            <div class="card">
+                <div class="container bg-light">
+                    <ul class="p-3">
+                        <li class="w-100 text-left p-2">  <img src="{{asset('/assets/images_front/category/')}}/{{$cat->image}}" height="200" width="200" /> <div class="p-3"><b class="text-primary">{{$cat->title }}</b></div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            @endforeach
+    </div>
+
+
     <!-- row closed -->
 @endsection
 @section('js')

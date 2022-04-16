@@ -51,10 +51,22 @@
             <div class="rate bg-main">
                 <div class="d-flex align-items-baseline justify-content-around">
                     <p class="text-white">
-                        <i class="fa-solid fa-thumbs-up text-primary"></i> like {{(int)$place->likes  + $likes}}
+                        <?php
+                        #################calculating likes and unlikes######33
+                        foreach($place->users_liked_places as $k) {
+                            if($k->pivot->liked_status === 1){
+                                $likes[] = $k->pivot->liked_status;
+                            }
+                            if($k->pivot->liked_status === 0){
+                                $unlikes[] = $k->pivot->liked_status;
+                            }
+                        }
+                        ###########################################
+                        ?>
+                        <i class="fa-solid fa-thumbs-up text-primary"></i> like {{(int)$place->likes  + count($likes)}}
                     </p>
                     <p class="text-white">
-                        <i class="fa-solid fa-thumbs-down uk-text-danger"></i> dislike {{(int)$place->unlikes  + $unlikes}}
+                            <i class="fa-solid fa-thumbs-down uk-text-danger"></i> dislike {{(int)$place->unlikes  + count($unlikes)}}
                     </p>
                 </div>
                 <p class="text-center text-white text-center">
@@ -156,7 +168,7 @@
                         <!--/**********special parts *********-->
                         @php $i = 0; @endphp
                         @foreach($additions as $key => $val)
-                            @if($additions[$key]-> type === 'special' &&  $i < 3)
+                            @if($additions[$key]-> type === 'special' &&  $i < 3 && $additions[$key]->place->status === 1)
 
                             @php $i++ @endphp
 
@@ -165,7 +177,7 @@
                                 <div class="fw-bold">{{$additions[$key]->title}}</div>
                                 {{$additions[$key]->desc}}
                             </div>
-                            <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="w-25 h_small_img" alt="">
+                                <img onclick="placeLink(this)" data-link="{{route('my_page',$additions[$key]->place->id)}}" src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="w-25 h_small_img" alt="">
                         </li>
                             @endif
                         @endforeach
@@ -175,11 +187,11 @@
                     <!--/**********ads parts *********-->
                     @php $i = 0; @endphp
                     @foreach($additions as $key => $val)
-                        @if($additions[$key]-> type === 'ads' &&  $i < 3)
+                        @if($additions[$key]-> type === 'ads' &&  $i < 3  && $additions[$key]->place->status === 1)
 
                         @php $i++ @endphp
 
-                        <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="py-3 ad_img" alt="">
+                     <img onclick="placeLink(this)" data-link="{{route('my_page',$additions[$key]->place->id)}}" src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}"  class="py-3 ad_img" alt="">
                     <h3 class="text-white ad_h">{{$additions[$key]->desc}}.</h3>
                     <hr>
                     @endif
@@ -194,14 +206,15 @@
                         <!--/**********best places parts *********-->
                         @php $i = 0; @endphp
                         @foreach($additions as $key => $val)
-                            @if($additions[$key]-> type === 'best' &&  $i < 3)
+                            @if($additions[$key]-> type === 'best' &&  $i < 3  && $additions[$key]->place->status === 1)
                             @php $i++ @endphp
                             <li class="list-group-item bg-main d-flex justify-content-between align-items-start h_li">
                             <div class="text-white ms-2 me-auto">
                                 <div class="fw-bold">{{$additions[$key]->title}}</div>
                                 {{$additions[$key]->desc}}
                             </div>
-                            <img src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="w-25 h_small_img" alt="">
+
+                                 <img onclick="placeLink(this)" data-link="{{route('my_page',$additions[$key]->place->id)}}" src="{{asset('assets/images_front/places/')}}/{{$additions[$key]->place->photos()[1]}}" class="w-25 h_small_img" alt="">
                         </li>
                             @endif
                         @endforeach
@@ -241,4 +254,9 @@
     </div>
 </section>
 <!-- End main section -->
+    <script>
+        function placeLink(object) {
+            window.location.href =object.getAttribute('data-link');
+        }
+    </script>
 @endsection

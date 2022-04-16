@@ -64,7 +64,7 @@ Route::group(
     Route::get('/', 'Front\MainController@index');
 
     Route::resource('main' , 'Front\MainController');
-    Route::get('place_page/{id}' , 'Front\PlaceController@index');
+    Route::get('place_page/{id}' , 'Front\PlaceController@index')->name('my_page');
 
     Route::get('news' , 'Front\NewsController@index')->name('news.front');
     Route::get('places/{catId}' , 'Front\MainController@getPlacesByCatId');
