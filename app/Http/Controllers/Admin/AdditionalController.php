@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdditionRequest;
 use App\Models\Additional;
 use App\Models\Category;
 use App\Models\Place;
@@ -48,7 +49,8 @@ class AdditionalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdditionRequest $request)
+
     {
         $arr = ['ads' => Additional::where('type','ads')->where('status' , 1)->get() , 'special' => Additional::where('type','special')->where('status' , 1)->get()];
 
@@ -73,42 +75,11 @@ class AdditionalController extends Controller
             $arr['special'][0]->delete();
         }
 
-        return redirect()->back();
+        return redirect(route('additions.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Additional  $additional
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Additional $additional)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Additional  $additional
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Additional $additional)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Additional  $additional
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Additional $additional)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -116,12 +87,14 @@ class AdditionalController extends Controller
      * @param  \App\Models\Additional  $additional
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Additional $additional)
+    public function destroy($id)
     {
         try{
+            $additional = Additional::find($id);
+
             $additional->delete();
-            toastr()->error(__("global1.delete"));
-            return redirect(route('category.index'));
+            toastr()->error(trans("global1.delete"));
+            return redirect(route('additions.index'));
 
         }
 

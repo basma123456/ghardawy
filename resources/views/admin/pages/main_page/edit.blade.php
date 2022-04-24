@@ -350,18 +350,18 @@
                                 <br>
 
                                 <div class="form-row">
-{{--                                    <div class="col">--}}
-{{--                                        <label for="seller_id">{{trans('Teacher_trans.seller_id')}}</label>--}}
-{{--                                        <select name="seller" class="form-control">--}}
-{{--                                            <option>Choose Seller</option>--}}
-{{--                                            @foreach($sellers as $seller)--}}
-{{--                                            <option value="{{$seller->id}}">{{$seller->name}}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
-{{--                                        @error('seller_id')--}}
-{{--                                        <div class="alert alert-danger">{{$message}}</div>--}}
-{{--                                        @enderror--}}
-                                    </div>
+                                    {{--                                    <div class="col">--}}
+                                    {{--                                        <label for="seller_id">{{trans('Teacher_trans.seller_id')}}</label>--}}
+                                    {{--                                        <select name="seller" class="form-control">--}}
+                                    {{--                                            <option>Choose Seller</option>--}}
+                                    {{--                                            @foreach($sellers as $seller)--}}
+                                    {{--                                            <option value="{{$seller->id}}">{{$seller->name}}</option>--}}
+                                    {{--                                            @endforeach--}}
+                                    {{--                                        </select>--}}
+                                    {{--                                        @error('seller_id')--}}
+                                    {{--                                        <div class="alert alert-danger">{{$message}}</div>--}}
+                                    {{--                                        @enderror--}}
+                                </div>
 
 
 
@@ -386,60 +386,60 @@
     @toastr_render
 
 
-{{--    <script>--}}
-{{--        // $.ajaxSetup({--}}
-{{--        //     headers: {--}}
-{{--        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-{{--        //     }--}}
-{{--        // });--}}
-{{--        $(document).ready(function(){--}}
-{{--            $('#search').on('keyup' , function(){--}}
-{{--                $('#x_dismiss').addClass('show');--}}
+    {{--    <script>--}}
+    {{--        // $.ajaxSetup({--}}
+    {{--        //     headers: {--}}
+    {{--        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+    {{--        //     }--}}
+    {{--        // });--}}
+    {{--        $(document).ready(function(){--}}
+    {{--            $('#search').on('keyup' , function(){--}}
+    {{--                $('#x_dismiss').addClass('show');--}}
 
-{{--                var query = $(this).val();--}}
+    {{--                var query = $(this).val();--}}
 
-{{--                $.ajax({--}}
-{{--                    url:"{{route('search.seller')}}",--}}
-{{--                    type:"GET",--}}
-{{--                    data:{'search':query},--}}
-{{--                    success:function(data){--}}
-{{--                        $('#search_list').html(data);--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            });--}}
+    {{--                $.ajax({--}}
+    {{--                    url:"{{route('search.seller')}}",--}}
+    {{--                    type:"GET",--}}
+    {{--                    data:{'search':query},--}}
+    {{--                    success:function(data){--}}
+    {{--                        $('#search_list').html(data);--}}
+    {{--                    }--}}
+    {{--                });--}}
+    {{--            });--}}
 
-{{--            /////////////////////--}}
-
-
-{{--            ///////////////////////////--}}
-
-{{--            $('#x_dismiss').on('click' ,function(){--}}
-{{--                $('#table-live-search').fadeOut();--}}
-{{--                $('#x_dismiss').removeClass('show');--}}
-
-{{--            });--}}
+    {{--            /////////////////////--}}
 
 
+    {{--            ///////////////////////////--}}
 
-{{--        });--}}
+    {{--            $('#x_dismiss').on('click' ,function(){--}}
+    {{--                $('#table-live-search').fadeOut();--}}
+    {{--                $('#x_dismiss').removeClass('show');--}}
 
-
-{{--    ///////////////////get value  from seller search to an input field////////////////////--}}
-
-
-{{--        function getVal(object) {--}}
-{{--            var myVal = object.getAttribute('data-val');--}}
-{{--            var myNameVal = object.getAttribute('data-name');--}}
-
-{{--            var myId =  document.getElementById('my_seller_id');--}}
-{{--            var myName = document.getElementById('my_seller_name');--}}
-{{--              myId.value =  myVal;--}}
-{{--              myName.value = myNameVal;--}}
-{{--        }--}}
+    {{--            });--}}
 
 
-{{--        ////////////////////////--}}
 
-{{--    </script>--}}
+    {{--        });--}}
+
+
+    {{--    ///////////////////get value  from seller search to an input field////////////////////--}}
+
+
+    {{--        function getVal(object) {--}}
+    {{--            var myVal = object.getAttribute('data-val');--}}
+    {{--            var myNameVal = object.getAttribute('data-name');--}}
+
+    {{--            var myId =  document.getElementById('my_seller_id');--}}
+    {{--            var myName = document.getElementById('my_seller_name');--}}
+    {{--              myId.value =  myVal;--}}
+    {{--              myName.value = myNameVal;--}}
+    {{--        }--}}
+
+
+    {{--        ////////////////////////--}}
+
+    {{--    </script>--}}
 
 @endsection

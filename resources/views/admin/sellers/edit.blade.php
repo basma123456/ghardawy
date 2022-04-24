@@ -79,6 +79,14 @@
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
+                                    <div class="col">
+                                        <label for="title">{{trans('Teacher_trans.Name_ru')}}</label>
+                                        <input type="text" name="Name_ru" value="{{ $seller->getTranslation('name', 'ru')? $seller->getTranslation('name', 'ru') :  old('Name_ru')}}" class="form-control">
+                                        @error('Name_ru')
+                                        <div class="alert alert-danger">{{$message}}</div>
+                                        @enderror
+                                    </div>
+
                                 </div>
                                 <br>
                                 <br>
@@ -113,6 +121,16 @@
                                     <div class="alert alert-danger">{{$message}}</div>
                                     @enderror
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">{{trans('Teacher_trans.Address_ru')}}</label>
+                                    <textarea class="form-control" name="Address_ru"
+                                              id="exampleFormControlTextarea1" rows="4">{{ $seller->getTranslation('address', 'ru')? $seller->getTranslation('address', 'ru') :  old('Address_ru')}}</textarea>
+                                    @error('Address_ru')
+                                    <div class="alert alert-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea12">{{trans('Teacher_trans.status')}}</label>
 

@@ -2,19 +2,19 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_apply.apply_index')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_apply.list_students')}}
 @stop
 <!-- breadcrumb -->
 @endsection
 @section('content')
     <!-- row -->
-    <h2 class="elegantshadow text-center" >Applications For Places</h2>
+    <h2 class="elegantshadow text-center" > {{trans('admin_apply.application_for_places')}}</h2>
 
     <div class="row">
         <div class="col-md-12 mb-30">
@@ -30,15 +30,15 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{trans('Students_trans.title')}}</th>
-                                            <th>{{trans('Students_trans.description')}}</th>
-                                            <th>{{trans('Students_trans.place_progress')}}</th>
-                                            <th>{{trans('Students_trans.phone')}}</th>
-                                            <th>{{trans('Students_trans.address')}}</th>
-                                            <th>{{trans('Students_trans.seen')}}</th>
-                                            <th>{{trans('Students_trans.status')}}</th>
-                                            <th>{{trans('Students_trans.super_admin_id_or_admin_id')}}</th>
-                                            <th>{{trans('Students_trans.Processes')}}</th>
+                                            <th>{{trans('admin_apply.title')}}</th>
+                                            <th>{{trans('admin_apply.description')}}</th>
+                                            <th>{{trans('admin_apply.place_progress')}}</th>
+                                            <th>{{trans('admin_apply.phone')}}</th>
+                                            <th>{{trans('admin_apply.address')}}</th>
+                                            <th>{{trans('admin_apply.seen')}}</th>
+                                            <th>{{trans('admin_apply.status')}}</th>
+                                            <th>{{trans('admin_apply.super_admin_id_or_admin_id')}}</th>
+                                            <th>{{trans('admin_apply.Processes')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -62,14 +62,14 @@
                                                     <td>
                                                     <div class="dropdown show">
                                                         <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            العمليات
+                                                            {{trans('admin_apply.Processes')}}
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="{{route('apply_place.show',$application->id)}}"><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
+                                                            <a class="dropdown-item" href="{{route('apply_place.show',$application->id)}}"><i style="color: #ffc107" class="far fa-eye "></i>{{trans('admin_apply.show')}}</a>
 {{--                                                            <a class="dropdown-item" href="{{route('news.edit' , $application->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>--}}
                                                             <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                     data-target="#delete{{ $application->id }}"
-                                                                    title="{{ trans('$application.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>
+                                                                    title="{{trans('admin_apply.delete')}}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  {{trans('admin_apply.delete')}}  </button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -86,7 +86,7 @@
                                                             <div class="modal-header">
                                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                                     id="exampleModalLabel">
-                                                                    {{ trans('$application.delete') }}
+                                                                    {{trans('admin_apply.delete')}}
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
@@ -97,14 +97,13 @@
                                                                 <form action="{{ route('apply_place.destroy', $application->id) }}" method="post">
                                                                     {{ method_field('Delete') }}
                                                                     @csrf
-                                                                    {{ trans('newss.warning') }}
                                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                                            value="{{ $application->id }}">
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$application.close') }}</button>
+                                                                                data-dismiss="modal">{{trans('admin_apply.close')}}</button>
                                                                         <button type="submit"
-                                                                                class="btn btn-danger">{{ trans('$application.submit') }}</button>
+                                                                                class="btn btn-danger">{{trans('admin_apply.submit')}}</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -114,7 +113,7 @@
 
                                                 <script>
                                                     function destFunc() {
-                                                        var r = confirm('are you sure');
+                                                        var r = confirm("trans('admin_apply.Are_you_sure_you_want_to_delete')");
                                                         if (r === true){
                                                             window.location.href ='{{route("apply_place.destroy" , $application->id)}}';            }
                                                     }

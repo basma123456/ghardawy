@@ -32,7 +32,8 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{route('roles.store')}}" method="post">
+
+                            <form action="{{\LaravelLocalization::localizeURL(route('roles.store'))}}" method="post">
                                 @csrf
 
                                 <div class="form-row">

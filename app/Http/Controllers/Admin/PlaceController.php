@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PlaceRequest;
 use App\Http\Requests\PlaceUpdateRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Place;
 use App\Models\PlaceRegion;
 use App\Models\Seller;
@@ -31,7 +32,7 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = Place::latest()->paginate(10);
+        $places = Place::latest()->paginate(5);
 
         //with('comments')
         return view('admin.places.index' , compact('places'));
@@ -69,7 +70,7 @@ class PlaceController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'desc' => ['ar' => $request->desc_ar, 'en' => $request->desc_en , 'ru' => $request->desc_ru],
-                'status' => (int)$request->status,
+                'status' => (int)$request->status != null ? (int)$request->status :0,
                 'likes' => (int)$request->likes,
                 'unlikes' => (int)$request->unlikes,
                 'image' => $this->saveMultipleImages($request->hasFile('image'), $request->file('image'), '/assets/images_front/places/') ,
@@ -91,10 +92,10 @@ class PlaceController extends Controller
 
             if ($place) {
 
-                toastr()->success(__("global1.success_create"));
-                return redirect()->back();
+                toastr()->success(trans("global1.success_create"));
+                return redirect(route('places.index'));
             } else {
-                toastr()->error(__("global1.not_done"));
+                toastr()->error(trans("global1.error"));
                 return redirect()->back();
 
             }
@@ -116,7 +117,7 @@ class PlaceController extends Controller
      */
     public function show(Place $place)
     {
-        //
+        return view('admin.places.show_place' , compact('place'));
     }
 //
     /**
@@ -193,7 +194,7 @@ class PlaceController extends Controller
 
             $cat->save();
 
-            toastr()->success(__("global1.success_create"));
+            toastr()->success(trans("global1.success_create"));
             return redirect(route('places.index'))->with(['success_msg', 'congratulations , it has been updated successfully']);
         }
 
@@ -246,7 +247,7 @@ class PlaceController extends Controller
             $cat->save();
 
             toastr()->error($this->deletion($deletion , trans('messages.deletion') , trans('messages.not_completed')));
-            return redirect()->back();
+            return redirect(route('places.index'));
         }
         catch (\Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

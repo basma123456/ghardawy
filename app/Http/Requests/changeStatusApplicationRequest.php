@@ -28,4 +28,11 @@ class changeStatusApplicationRequest extends FormRequest
             'options' => ['required',Rule::in(['no_action_yet','postponed','accepted','rejected','called'])],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'options.required' => trans('validation.required'),
+        ];
+    }
 }

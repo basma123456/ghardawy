@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_places.list_branches')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_places.list_students')}}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -22,8 +22,6 @@
                     <div class="col-xl-12 mb-30">
                         <div class="card card-statistics h-100">
                             <div class="card-body">
-                                <a href="{{route('places.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
                                 <div class="table-responsive">
                                     <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -31,13 +29,13 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{trans('Students_trans.place')}}</th>
-                                            <th>{{trans('Students_trans.region')}}</th>
-                                            <th>{{trans('Students_trans.admin_or_super_admin')}}</th>
-                                            <th>{{trans('Students_trans.desc')}}</th>
-                                            <th>{{trans('Students_trans.phone')}}</th>
+                                            <th>{{trans('admin_places.place')}}</th>
+                                            <th>{{trans('admin_places.region')}}</th>
+                                            <th>{{trans('admin_places.admin_or_super_admin')}}</th>
+                                            <th>{{trans('admin_places.desc')}}</th>
+                                            <th>{{trans('admin_places.phone')}}</th>
 
-                                            <th>{{trans('Students_trans.Processes')}}</th>
+                                            <th>{{trans('admin_places.Processes')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -49,24 +47,21 @@
                                                     <td>{{$placeRegion->regions->government }} , {{$placeRegion->regions->city}} , {{$placeRegion->regions->district}}</td>
 
 
-                                                    <td>{{$placeRegion->admin_id > 0 ? 'Admin Is ' .$placeRegion->admin_id:(
-                                                $placeRegion->super_admin_id > 0 ? 'Super Admin Is ' .$placeRegion->super_admin_id:'')
+                                                    <td>{{$placeRegion->admin_id > 0 ? trans('admin_places.Admin_Is') . ' ' .$placeRegion->admin_id:(
+                                                $placeRegion->super_admin_id > 0 ? trans('admin_places.Super_Admin_Is')  . ' ' .$placeRegion->super_admin_id:'')
                                                 }}</td>
                                                     <td>{{$placeRegion->desc}}</td>
                                                     <td>{{$placeRegion->phone}}</td>
                                                     <td>
                                                         <div class="dropdown show">
                                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                العمليات
+                                                                {{trans('admin_places.processes')}}
                                                             </a>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp; {{ trans('branches.show') }} </a>
-                                                                <a class="dropdown-item" href="{{route('branches.show' , $placeRegion->id)}}"><i style="color: #ffc107" class="far fa-eye "></i>&nbsp; {{ trans('branches.show_branches') }}</a>
-                                                                <a class="dropdown-item" href="{{route('branches.update' , [$place , $placeRegion->id])}}"><i style="color: #ffc107" class="far fa-eye "></i>&nbsp; {{ trans('branches.update_branch') }}</a>
 
                                                                 <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                         data-target="#delete{{ $placeRegion->id }}"
-                                                                        title="{{ trans('$placeRegion.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  {{ trans('branches.delete') }}</button>
+                                                                        title="{{ trans('admin_places.delete')}}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  {{ trans('admin_places.delete')}}</button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -83,7 +78,7 @@
                                                             <div class="modal-header">
                                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                                     id="exampleModalLabel">
-                                                                    {{ trans('$placeRegion.delete') }}
+                                                                    {{ trans('admin_places.delete')}}
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
@@ -91,16 +86,16 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{ route('branch.destroy', $placeRegion->id) }}" method="get">
+                                                                <form action="{{ route('branch.destroy.my', $placeRegion->id) }}" method="post">
                                                                     @csrf
-                                                                    {{ trans('newss.warning') }}
+                                                                    {{ trans('admin_places.warning') }}
                                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                                            value="{{ $placeRegion->id }}">
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$placeRegion.close') }}</button>
+                                                                                data-dismiss="modal">{{ trans('admin_places.close')}}</button>
                                                                         <button type="submit"
-                                                                                class="btn btn-danger">{{ trans('$placeRegion.submit') }}</button>
+                                                                                class="btn btn-danger">{{ trans('admin_places.submit')}}</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -110,7 +105,7 @@
 
                                                 <script>
                                                     function destFunc() {
-                                                        var r = confirm('are you sure');
+                                                        var r = confirm("{{ trans('admin_places.Are_you_sure_you_want_to_delete')}}");
                                                         if (r === true){
                                                             window.location.href ='{{route("places.destroy" , $placeRegion->id)}}';            }
                                                     }

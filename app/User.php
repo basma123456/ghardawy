@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Comment;
 use App\Models\Place;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','phone'
     ];
 
     /**
@@ -68,6 +69,11 @@ class User extends Authenticatable
             ->withPivot(  'liked_status');
     }
 
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::Class , 'user_id');
+    }
 
 
 }

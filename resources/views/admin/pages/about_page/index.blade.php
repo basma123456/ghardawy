@@ -65,13 +65,13 @@
         </style>
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_about_page.aboutPage')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_about_page.list_students')}}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -79,21 +79,18 @@
 {{--    {{dd($how_we_work_paragraphs)}}--}}
     <!-- row -->
     <div class="about-section">
-        <h2>About Us Page</h2>
+        <h2> {{trans('admin_about_page.about_us_Page')}}</h2>
     </div>
 
     <br>
     <br>
 
     <label class="btn btn-success">
-        <a href="{{url(route('about_page.create'))}}"> Add New One </a>
+        <a href="{{url(route('about_page.create'))}}"> {{trans('admin_about_page.add_new_one')}} </a>
     </label>
         <label class="btn btn-primary">
-            <a href="{{url(route('about_page.edit' , $about->id))}}"> Edit </a>
+            <a href="{{url(route('about_page.edit' , $about->id))}}">{{trans('admin_about_page.Edit')}}  </a>
         </label>
-    <label class="btn btn-danger">
-        <a href="{{url(route('about_page.destroy' , $about->id))}}"> Delete </a>
-    </label>
 
     <br>
     <br>
@@ -120,7 +117,7 @@
     <br>
     <br>
     <br>
-    <h3 class="alert alert-info w-50">The Upper Paragraphs</h3>
+    <h3 class="alert alert-info w-50">{{trans('admin_about_page.the_upper_paragraphs')}}</h3>
 
     <div class="row">
         <div class="column">
@@ -163,7 +160,7 @@
     </div>
 
     <br><br>
-    <h3 class="alert alert-info w-50">How we work paragraphs</h3>
+    <h3 class="alert alert-info w-50">{{trans('admin_about_page.how_we_work_paragraphs')}}</h3>
 
     <div class="row">
         <div class="column">
@@ -209,7 +206,7 @@
     <br>
 
 
-    <h3 class="alert alert-info w-50">Categories</h3>
+    <h3 class="alert alert-info w-50">{{trans('admin_about_page.Categories')}}</h3>
 
     <div class="row">
 

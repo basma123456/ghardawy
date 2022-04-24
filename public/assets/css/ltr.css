@@ -14981,7 +14981,7 @@ button.toast-close-button {
 
 /*# sourceMappingURL=bootstrap-datepicker.css.map */
 /*
-    Common 
+    Common
 */
 .wizard,
 .tabcontrol {
@@ -22871,3 +22871,29 @@ div.style-customizer .content-chooser input[type=radio]:checked ~ label {
     padding: 6px 19px !important; }
   .fc-right .fc-button-group .fc-button {
     padding: 6px 13px !important; } }
+
+.imgLogo{
+    width: 200px;
+    height: 170px;
+    z-index:2;
+    position: absolute;
+    left:0;
+    top:3px;
+    box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 white;
+
+}
+
+/*.opacity-bg-success{*/
+/*    background-color: rgba(60, 179, 113 , 0.1);*/
+/*}*/
+
+.opacity-bg-danger{
+    background-color: rgba(255, 0, 0 , 0.1);
+}
+.opacity-bg-danger:hover{
+    background-color: rgba(255, 0, 0 , 0.1) !important;
+}
+/**********sidebar****/
+.font_sidebar{
+    font-size: medium;
+}

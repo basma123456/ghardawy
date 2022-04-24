@@ -1,26 +1,26 @@
 <footer>
+    <?php $footer = getFooter(); ?>
     <div class="container p-5 ">
         <div class="row pt-5 position-relative">
             <div class="col-lg-3 col-md-12">
                 <img src="{{asset('assets/images_bg_front/ghardaqa-logo.png')}}" alt="">
-                <p class="uk-text-bolder txt-size-18">السياحة لُغةً بأنّها الضرب في الأرض؛ أي الانتقال والمشي من موقع إلى آخر، سواء في دولة معينة أو إقليم مُحدّد أو حول العالم؛ من أجل الوصول إلى حاجات معينة، وبعيدة عن مكان السكن الدائم أو بيئة الأعمال أو الحروب، أمّا اصطلاحاً فلم يظهر
-                    أي تعريف متفق عليه للسياحة، وفيما يأتي بعض من التعريفات الاصطلاحيّةميع الأشخاص الذين</p>
+                <p class="uk-text-bolder txt-size-18">{{$footer->description}}</p>
             </div>
             <div class="col-lg-3 col-md-7">
-                <h3 class="uk-text-bolder txt-size-24">عنواننا</h3>
-                <p class="uk-text-bolder txt-size-18">القاهرة , مصر</p>
+                <h3 class="uk-text-bolder txt-size-24">{{trans('front_footer.address')}}</h3>
+                <p class="uk-text-bolder txt-size-18">{{$footer->address}}</p>
             </div>
             <div class="col-lg-3 col-md-6">
-                <h3 class="uk-text-bolder txt-size-24">البريد الالكتروني</h3>
-                <p class="uk-text-bolder txt-size-18">business@gmail.com</p>
-                <p class="uk-text-bolder txt-size-18">clients@gmail.com</p>
+                <h3 class="uk-text-bolder txt-size-24">{{trans('front_footer.email')}}</h3>
+                <p class="uk-text-bolder txt-size-18">{{$footer->email1}}</p>
+                <p class="uk-text-bolder txt-size-18">{{$footer->email2}}</p>
 
             </div>
             <div class="col-lg-3 col-md-6">
-                <h3 class="uk-text-bolder txt-size-24">تواصل معنا</h3>
-                <p class="m-0 p-0 uk-text-bolder txt-size-18">01101234567</p>
-                <p class="m-0 p-0 uk-text-bolder txt-size-18">01101234567</p>
-                <p class="m-0 p-0 uk-text-bolder txt-size-18">01101234567</p>
+                @if(auth()->id() == null)     <h3 class="uk-text-bolder txt-size-24">  {{trans('front_footer.join_us')}} </h3>@endif
+                @foreach(json_decode($footer->phone) as $phone)
+                <p class="m-0 p-0 uk-text-bolder txt-size-18">{{$phone}}</p>
+                    @endforeach
             </div>
         </div>
     </div>
@@ -34,3 +34,5 @@
 </body>
 
 </html>
+
+

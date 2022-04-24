@@ -59,6 +59,11 @@ class Seller extends UnicodeAuthenticate
     }
 
 
+    public function place()
+    {
+        return $this->hasOne(Place::class , 'seller_id');
+    }
+
 
 
 }

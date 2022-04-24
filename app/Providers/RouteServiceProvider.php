@@ -22,8 +22,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = 'ar/main';
-    public const ADMIN = 'ar/home/admin';
-    public const SUPERADMIN = 'ar/home/super-admin';
+    public const ADMIN = 'ar/admin';
+    public const SUPERADMIN = 'ar/super-admin';
     public const SELLER = 'ar/seller';
 
 

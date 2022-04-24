@@ -2,19 +2,19 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_news.list_news')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_news.list_news')}}
 @stop
 <!-- breadcrumb -->
 @endsection
 @section('content')
     <!-- row -->
-    <h2 class="elegantshadow text-center" >News</h2>
+    <h2 class="elegantshadow text-center" >{{trans('admin_news.news')}}</h2>
 
     <div class="row">
         <div class="col-md-12 mb-30">
@@ -24,7 +24,7 @@
                         <div class="card card-statistics h-100">
                             <div class="card-body">
                                 <a href="{{route('news.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
+                                   aria-pressed="true">{{trans('admin_news.add_news')}}</a><br><br>
                                 <div class="table-responsive">
                                     <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -32,15 +32,16 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{trans('Students_trans.main_p')}}</th>
-                                            <th>{{trans('Students_trans.first_p')}}</th>
-                                            <th>{{trans('Students_trans.second_p')}}</th>
-                                            <th>{{trans('Students_trans.third_p')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
-                                            <th>{{trans('Students_trans.news_cat_id')}}</th>
-                                            <th>{{trans('Students_trans.super_admin_id_or_admin_id')}}</th>
-                                            <th>{{trans('Students_trans.status')}}</th>
-                                            <th>{{trans('Students_trans.Processes')}}</th>
+                                            <th>{{trans('admin_news.label')}}</th>
+                                            <th>{{trans('admin_news.main_p')}}</th>
+                                            <th>{{trans('admin_news.first_p')}}</th>
+                                            <th>{{trans('admin_news.second_p')}}</th>
+                                            <th>{{trans('admin_news.third_p')}}</th>
+                                            <th>{{trans('admin_news.image')}}</th>
+                                            <th>{{trans('admin_news.news_cat_id')}}</th>
+                                            <th>{{trans('admin_news.super_admin_id_or_admin_id')}}</th>
+                                            <th>{{trans('admin_news.Status')}}</th>
+                                            <th>{{trans('admin_news.Processes')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -48,31 +49,32 @@
 
                                         @isset($news)
                                             @foreach($news as $new)
-                                                <tr>
+                                                <tr  class="{{$new->status == (int)1?'opacity-bg-success text-dark' : 'opacity-bg-danger text-dark'}}">
                                                     <td></td>
+                                                    <td>{{$new->label}}</td>
                                                     <td>{{$new->main_p}}</td>
                                                     <td>{{$new->first_p}}</td>
                                                     <td>{{$new->second_p}}</td>
                                                     <td>{{$new->third_p}}</td>
                                                     <td><img width="150" height="100" src="{{asset('assets/images_front/news/')}}/{{$new->image}}"></td>
 
-                                                    <td>{{$new->news_cat_id}}</td>
-                                                    <td>{{$new->admin_id > 0 ? 'Admin Is ' .$new->admin_id:(
-                                                    $new->super_admin_id > 0 ? 'Super Admin Is ' .$new->super_admin_id:'')
+                                                    <td>{{$new->newsCats->title}}</td>
+                                                    <td>{{$new->admin_id > 0 ?  trans('admin_news.admin_is') . ' '.$new->admin_id:(
+                                                    $new->super_admin_id > 0 ?  trans('admin_news.super_admin_is') . ' ' .$new->super_admin_id:'')
                                                     }}</td>
-                                                    <td>{{$new->status ===1 ? 'Active' : 'Un Active'}}</td>
+                                                    <td  class="text-white {{$new->status == (int)1?'bg-success text-light' : 'bg-danger text-light'}} opacity_td">{{$new->status ==(int)1 ? trans('admin_news.active') : trans('admin_news.deactive')}}</td>
 
                                                     <td>
                                                     <div class="dropdown show">
                                                         <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            العمليات
+                                                            {{trans('admin_news.Processes')}}
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
-                                                            <a class="dropdown-item" href="{{route('news.edit' , $new->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>
+{{--                                                            <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;      {{trans('admin_news.show')}} </a>--}}
+                                                            <a class="dropdown-item" href="{{route('news.edit' , $new->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  {{trans('admin_news.edit')}} </a>
                                                             <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                     data-target="#delete{{ $new->id }}"
-                                                                    title="{{ trans('$new.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>
+                                                                    title="{{trans('admin_news.delete')}}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  {{trans('admin_news.delete')}} </button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -89,7 +91,7 @@
                                                             <div class="modal-header">
                                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                                     id="exampleModalLabel">
-                                                                    {{ trans('$new.delete') }}
+                                                                    {{trans('admin_news.delete')}}
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
@@ -100,14 +102,14 @@
                                                                 <form action="{{ route('news.destroy', $new->id) }}" method="post">
                                                                     {{ method_field('Delete') }}
                                                                     @csrf
-                                                                    {{ trans('newss.warning') }}
+
                                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                                            value="{{ $new->id }}">
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$new.close') }}</button>
+                                                                                data-dismiss="modal"> {{trans('admin_news.close')}}</button>
                                                                         <button type="submit"
-                                                                                class="btn btn-danger">{{ trans('$new.submit') }}</button>
+                                                                                class="btn btn-danger"> {{trans('admin_news.submit')}}</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -117,7 +119,7 @@
 
                                                 <script>
                                                     function destFunc() {
-                                                        var r = confirm('are you sure');
+                                                        var r = confirm('{{trans("admin_news.Are_you_sure_you_want_to_delete")}}');
                                                         if (r === true){
                                                             window.location.href ='{{route("news.destroy" , $new->id)}}';            }
                                                     }
@@ -125,7 +127,9 @@
                                                 <!-----------------------------delete modal end------------------------------------>
 
                                         @endforeach
+                                       <div> {{$news->links()}}</div>
                                         @endisset
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

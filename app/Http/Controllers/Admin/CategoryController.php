@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(1);
+        $categories = Category::latest()->paginate(5);
         return view('admin.categories.index' , compact('categories'));
     }
 
@@ -68,8 +68,8 @@ class CategoryController extends Controller
 
 
             $cats = Category::create([
-                'title' => ['ar' => $request->title_ar, 'en' => $request->title_en],
-                'about_page' => ['ar' => $request->about_page_ar, 'en' => $request->about_page_en],
+                'title' => ['ar' => $request->title_ar, 'en' => $request->title_en , 'ru' => $request->title_ru],
+                'about_page' => ['ar' => $request->about_page_ar, 'en' => $request->about_page_en ,  'ru' => $request->about_page_ru],
                 'likes' => (int)$request->likes,
                 'unlikes' => (int)$request->unlikes,
                 'status' => (int)$request->status,
@@ -79,7 +79,7 @@ class CategoryController extends Controller
                 'admin_id' => $this->getGuard() === 'admin' ? $this->getGuardId() : null,
             ]);
 
-            toastr()->success(__("global1.success_create"));
+            toastr()->success(trans("global1.success_create"));
             return redirect(route('category.index'));
         }
 
@@ -87,17 +87,6 @@ class CategoryController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()] );
 
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
     }
 
     /**
@@ -147,8 +136,8 @@ class CategoryController extends Controller
 //                $image_value = $category->getOriginal('image');
 //            }
 
-            $category->title = ['ar' => $request->title_ar, 'en' => $request->title_en];
-            $category->about_page = ['ar' => $request->about_page_ar, 'en' => $request->about_page_en];
+            $category->title = ['ar' => $request->title_ar, 'en' => $request->title_en , 'ru' => $request->title_ru];
+            $category->about_page = ['ar' => $request->about_page_ar, 'en' => $request->about_page_en ,  'ru' => $request->about_page_ru];
             /************/
             $category->status = (int)$request->status;
             $category->likes = (int)$request->likes;
@@ -159,8 +148,8 @@ class CategoryController extends Controller
             $category->admin_id = $this->getGuard() === 'admin' ? $this->getGuardId() : null;
 
             $category->save();
-            toastr()->success(__("global1.success_create"));
-            return redirect(route('category.index'))->with(['success_msg', 'congratulations , it has been updated successfully']);
+            toastr()->success(trans("global1.success_create"));
+            return redirect(route('category.index'))->with(['success_msg', 'global1.success_create']);
         }
 
         catch (\Exception $e) {

@@ -37,6 +37,13 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+ //Appserviceprovider
+//    public const HOME = 'ar/main';
+//    public const ADMIN = 'ar/home/admin';
+//    public const SUPERADMIN = 'ar/home/super-admin';
+//    public const SELLER = 'ar/seller';
+
+
     /**
      * Create a new controller instance.
      *
@@ -45,7 +52,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->middleware('guest:seller');
 
     }
 
@@ -61,6 +67,8 @@ class RegisterController extends Controller
 
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'l_name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -78,7 +86,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['name'] . ' ' . $data['l_name'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -87,27 +96,27 @@ class RegisterController extends Controller
 
 
     ########################################################
-    public function showSellerRegisterationForm()
-    {
-        return view('auth.register' , ['url' => 'seller']);
-    }
+//    public function showSellerRegisterationForm()
+//    {
+//        return view('auth.register' , ['url' => 'seller']);
+//    }
 
     /*******************************************************/
 
-    protected function createSeller(SellerAuthRequest $request)
-    {
-//        $this->validator($request->all())->validate();
-        $validated = $request->validated();
-
-        Seller::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return redirect()->intended('login/seller');
-    }
-
+//    protected function createSeller(SellerAuthRequest $request)
+//    {
+////        $this->validator($request->all())->validate();
+//        $validated = $request->validated();
+//
+//        Seller::create([
+//            'name' => $request->name,
+//            'email' => $request->email,
+//            'password' => Hash::make($request->password),
+//        ]);
+//
+//        return redirect()->intended('login/seller');
+//    }
+//
     #######################################################
 
 

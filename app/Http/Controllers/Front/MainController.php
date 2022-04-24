@@ -44,7 +44,7 @@ class MainController extends Controller
 
 //        dd($catsCounts);
 
-        $cats = Category::with('places')->latest()->get();
+        $cats = Category::withCount('places')->latest()->get();
 //          $m =  $cats->places()->get();
 //          $m->likes_unlikes();
 //        dd($m->likes_unlikes());
@@ -87,68 +87,13 @@ class MainController extends Controller
         return view('front.index' , ['cats' => $cats , 'regions' => $regions , 'mains' => $mains , 'frontCats' => $frontCats , 'additions' => $additions ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Main  $main
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Main $main)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Main  $main
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Main $main)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Main  $main
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Main $main)
-    {
-        //
-    }
-
     /***************************************/
 
     public function getPlacesByCatId($catId)
     {
 //        latest()->paginate(10);
         $places = Place::where('category_id' , $catId)->where('status' , 1)->latest()->paginate(5);
-        $cats = Category::latest()->get();
+        $cats = Category::withCount('places')->latest()->get();
         $regions = Region::latest()->get();
 
         //with('comments')
@@ -177,7 +122,7 @@ class MainController extends Controller
 
         /*******************/
         $cats = Category::select('id' , 'title')->where('status' , 1)->latest()->get();
-        $regions = Region::latest('id' , 'government' , 'city' , 'city')->get();
+        $regions = Region::latest('id' , 'government' , 'district' , 'city')->get();
         $region_id = $request->region_id;
 
 
@@ -207,14 +152,4 @@ class MainController extends Controller
 
 
     /******************************************/
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Main  $main
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Main $main)
-    {
-        //
-    }
 }

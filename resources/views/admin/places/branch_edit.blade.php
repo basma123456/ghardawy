@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('css')
     @toastr_css
-@section('government')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+@section('title')
+    {{ trans('admin_places.edit_branch') }}
 @stop
 @endsection
 @section('page-header')
 
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_places.edit_branch') }}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -32,7 +32,7 @@
     {{--        </div>--}}
     {{--    @endif--}}
     <!-- row -->
-    <h2 class="elegantshadow text-center" >Branches</h2>
+    <h2 class="elegantshadow text-center" >{{trans('admin_places.Branches')}}</h2>
 
     <div class="row">
         <div class="col-md-12 mb-30">
@@ -53,7 +53,8 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{url('branches.update' , [$place , $placeRegion])}}" method="post" enctype="multipart/form-data">
+
+                            <form action="{{\LaravelLocalization::localizeURL(url('branches.update' , [$place , $placeRegion]))}}" method="post" enctype="multipart/form-data">
                                 @csrf
 {{--                                place_id region_id address desc phone admin_id super_admin_id--}}
 
@@ -67,7 +68,7 @@
 
 
                                     <div class="text-center w-25 search-custom">
-                                            <input type="text" name="search" id="search" class="form-control"  value="{{old('search')}}" placeholder="search here For Sellers" /><span style="margin-top: -37px;" class='hide btn btn-secondary btn-sm float-right flex' id='x_dismiss'>x</span>
+                                            <input type="text" name="search" id="search" class="form-control"  value="{{old('search')}}" placeholder="search here For regions" /><span style="margin-top: -37px;" class='hide btn btn-secondary btn-sm float-right flex' id='x_dismiss'>x</span>
                                         </div>
                                         <div id="search_list">
 
@@ -77,7 +78,7 @@
                                         <br>
                                         <div>
                                             <div class="col">
-                                                <input   type="text" placeholder="{{trans('Teacher_trans.seller')}}" value="{{old('my_region_name' , $placeRegion->regions->government . ' , ' .  $placeRegion->regions->city . ' , ' .  $placeRegion->regions->district  )}}" class="form-control" name="my_region_name" id="my_region_name">
+                                                <input   type="text" placeholder="{{trans('admin_places.region')}}" value="{{old('my_region_name' , $placeRegion->regions->government . ' , ' .  $placeRegion->regions->city . ' , ' .  $placeRegion->regions->district  )}}" class="form-control" name="my_region_name" id="my_region_name">
                                                 <input type="hidden"  value="{{old('region_id', $placeRegion->region_id ?? '')}}" name="region_id" id="my_region_id">
                                                 @error('region_id')
                                                 <div class="alert alert-danger">{{$message}}</div>
@@ -90,14 +91,14 @@
                                     <hr>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="address_ar">{{trans('Teacher_trans.address_ar')}}</label>
+                                        <label for="address_ar">{{trans('admin_places.address_ar')}}</label>
                                         <input name="address_ar" class="form-control" value="{{old('address_ar', $placeRegion->getTranslation('address' , 'ar') ?? '')}}" />
                                         @error('address_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="address_en">{{trans('Teacher_trans.address_en')}}</label>
+                                        <label for="address_en">{{trans('admin_places.address_en')}}</label>
                                         <input name="address_en" class="form-control"  value="{{old('address_en', $placeRegion->getTranslation('address' , 'en')  ?? '')}}" />
                                         @error('address_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -105,7 +106,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="address_ru">{{trans('Teacher_trans.address_ru')}}</label>
+                                        <label for="address_ru">{{trans('admin_places.address_ru')}}</label>
                                         <input name="address_ru" class="form-control"  value="{{old('address_ru', $placeRegion->getTranslation('address' , 'ru') ?? '')}}" />
                                         @error('address_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -119,14 +120,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="desc_ar">{{trans('Teacher_trans.desc_ar')}}</label>
+                                        <label for="desc_ar">{{trans('admin_places.desc_ar')}}</label>
                                         <textarea name="desc_ar" class="form-control" rows="4">{{old('desc_ar', $placeRegion->getTranslation('desc' , 'ar') ?? '')}}</textarea>
                                         @error('desc_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="desc_en">{{trans('Teacher_trans.desc_en')}}</label>
+                                        <label for="desc_en">{{trans('admin_places.desc_en')}}</label>
                                         <textarea name="desc_en" class="form-control" rows="4">{{old('desc_en', $placeRegion->getTranslation('desc' , 'en') ?? '')}}</textarea>
                                         @error('desc_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -134,7 +135,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="desc_ru">{{trans('Teacher_trans.desc_ru')}}</label>
+                                        <label for="desc_ru">{{trans('admin_places.desc_ru')}}</label>
                                         <textarea name="desc_ru" class="form-control" rows="4">{{old('desc_ru', $placeRegion->getTranslation('desc' , 'ru') ?? '')}}</textarea>
                                         @error('desc_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -145,7 +146,7 @@
                                 <hr>
 
                                 <div class="col">
-                                    <label for="desc_ru">{{trans('Teacher_trans.phone')}}</label>
+                                    <label for="desc_ru">{{trans('admin_places.phone')}}</label>
                                     <input name="phone" class="form-control" value="{{old('phone', $placeRegion->phone ?? '')}}" />
                                     @error('phone')
                                     <div class="alert alert-danger">{{$message}}</div>
@@ -155,11 +156,11 @@
                                 <br>
                                 <hr>
                                 <div class="col">
-                                    <label for="status">{{trans('Teacher_trans.status')}}</label>
+                                    <label for="status">{{trans('admin_places.status')}}</label>
                                     <select  class="form-control h-75" name="status" >
                                         <option  value="" class="form-control" > Choose Status </option>
-                                        <option  value="{{(int)1}}"  {{ old('status' , $placeRegion->status) == (int)1 ? 'selected' : '' }} class="form-control" > {{trans('Teacher_trans.active')}} </option>
-                                        <option  value="{{(int)0}}" {{ old('status' , $placeRegion->status) == (int)0 ? 'selected' : '' }} class="form-control" > {{trans('Teacher_trans.un_active')}} </option>
+                                        <option  value="{{(int)1}}"  {{ old('status' , $placeRegion->status) == (int)1 ? 'selected' : '' }} class="form-control" > {{trans('admin_places.active')}} </option>
+                                        <option  value="{{(int)0}}" {{ old('status' , $placeRegion->status) == (int)0 ? 'selected' : '' }} class="form-control" > {{trans('admin_places.un_active')}} </option>
 
 
                                     </select>
@@ -178,7 +179,7 @@
                               </span>
 
                                 <br>
-                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('Parent_trans.Next')}}</button>
+                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('admin_places.Next')}}</button>
                             </form>
                         </div>
                     </div>

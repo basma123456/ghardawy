@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_regions.list_regions')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_regions.list_students')}}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -23,7 +23,7 @@
                         <div class="card card-statistics h-100">
                             <div class="card-body">
                                 <a href="{{route('regions.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
+                                   aria-pressed="true">{{trans('admin_regions.add_region')}}</a><br><br>
                                 <div class="table-responsive">
                                     <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -31,16 +31,16 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{trans('Students_trans.government')}}</th>
+                                            <th>{{trans('admin_regions.government')}}</th>
 
-                                            <th>{{trans('Students_trans.city')}}</th>
-                                            <th>{{trans('Students_trans.district')}}</th>
-                                            <th>{{trans('Students_trans.desc')}}</th>
+                                            <th>{{trans('admin_regions.city')}}</th>
+                                            <th>{{trans('admin_regions.district')}}</th>
+                                            <th>{{trans('admin_regions.desc')}}</th>
 
-                                            <th>{{trans('Students_trans.admin_or_super_admin')}}</th>
+                                            <th>{{trans('admin_regions.admin_or_super_admin')}}</th>
 
 
-                                            <th>{{trans('Students_trans.Processes')}}</th>
+                                            <th>{{trans('admin_regions.Processes')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -55,19 +55,18 @@
                                                     <td>{{$region->district}}</td>
                                                     <td>{{$region->desc}}</td>
 
-                                                    <td>{{$region->admin_id > 0 ? 'Admin Is ' .$region->admin_id:(
-                                                $region->super_admin_id > 0 ? 'Super Admin Is ' .$region->super_admin_id:'')}}</td>
+                                                    <td>{{$region->admin_id > 0 ? trans('admin_regions.Admin_Is') . ' ' .$region->admin_id:(
+                                                $region->super_admin_id > 0 ? trans('admin_regions.Super_Admin_Is') . ' ' .$region->super_admin_id:'')}}</td>
                                                     <td>
                                                         <div class="dropdown show">
                                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                العمليات
+                                                                {{trans('admin_regions.processes')}}
                                                             </a>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
-                                                                <a class="dropdown-item" href="{{route('regions.edit' , $region->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>
+                                                                <a class="dropdown-item" href="{{route('regions.edit' , $region->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  {{trans('admin_regions.edit')}}</a>
                                                                 <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                         data-target="#delete{{ $region->id }}"
-                                                                        title="{{ trans('$region.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>
+                                                                        title="{{trans('admin_regions.delete')}}"><i style="color: red" class="fa fa-trash"></i>&nbsp; {{trans('admin_regions.delete')}}</button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -84,7 +83,7 @@
                                                             <div class="modal-header">
                                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                                     id="exampleModalLabel">
-                                                                    {{ trans('$region.delete') }}
+                                                                    {{trans('admin_regions.delete')}}
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
@@ -95,14 +94,14 @@
                                                                 <form action="{{ route('regions.destroy', $region->id) }}" method="post">
                                                                     {{ method_field('Delete') }}
                                                                     @csrf
-                                                                    {{ trans('newss.warning') }}
+                                                                    {{ trans('admin_regions.warning') }}
                                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                                            value="{{ $region->id }}">
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$region.close') }}</button>
+                                                                                data-dismiss="modal">{{trans('admin_regions.close')}}</button>
                                                                         <button type="submit"
-                                                                                class="btn btn-danger">{{ trans('$region.submit') }}</button>
+                                                                                class="btn btn-danger">{{trans('admin_regions.submit')}}</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -112,7 +111,7 @@
 
                                                 <script>
                                                     function destFunc() {
-                                                        var r = confirm('are you sure');
+                                                        var r = confirm("{{trans('admin_regions.Are_you_sure_you_want_to_delete')}}");
                                                         if (r === true){
                                                             window.location.href ='{{route("regions.destroy" , $region->id)}}';            }
                                                     }

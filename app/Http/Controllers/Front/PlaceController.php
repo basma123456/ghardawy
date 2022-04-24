@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FrontCommentRequest;
 use App\Models\Additional;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\LikesUnlikesPlaces;
 use App\Models\Place;
@@ -27,10 +29,13 @@ class PlaceController extends Controller
         $one = 1;
         $place = Place::with('users_liked_places')->with(['comments' =>
             function($query) use ($one){
-                $query->where('status' , $one);
+                $query->where('status' , $one)->latest()->limit(2);
             }
         ])->where('status' , 1)->find($id);
          $place != null ? $photos = $place->photos() :$photos = null;
+         if(isset( $place->comments)) {
+             $place->comments->load('user');
+         }
          $additions = Additional::with('place')->where('status' , 1)->latest()->get();
 
             if($place != null && $photos != null) {
@@ -47,10 +52,25 @@ class PlaceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function makeComment(Request $request , $id)
-    {
+    public function makeComment(FrontCommentRequest $request , $id)
 
-        $place = Place::with('comments')->with('users_liked_places')->find($id);
+    {
+        $me = auth()->id();
+//        dd(auth()->user()->likedUnlikedPlaces->where('place_id' , 60)->get());
+        $myPlace =  Place::with
+        (['users_liked_places' =>
+            function($query) use ($me){
+                $query->where('user_id' , $me)->latest();
+            }
+
+        ])->latest()->first();
+
+
+
+        DB::beginTransaction();
+       try {
+
+           $place = Place::with('comments')->with('users_liked_places')->find($id);
 
         $comment = new Comment();
         $comment->desc = $request->comment;
@@ -77,13 +97,51 @@ class PlaceController extends Controller
         $attaching = $place->users_liked_places()->attach(auth()->id(), ['user_id' => auth()->id(), 'place_id' => $id ,'liked_status' => $likedStatus , 'unliked_status' => $unlikedStatus]);
         /*****************************likes part********************************/
 //        $seminar->students->contains($student);
-        if($likedStatus == (int)1 && $place->users_liked_places->contains(auth()->id())){
-            $place->category->likes =  $place->category->getOriginal('likes') + 1;
+           //note
 
-        }elseif($unlikedStatus == (int)1){
-            $place->category->likes =  $place->category->getOriginal('likes') - 1;
+           if($likedStatus == 1 && $place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places[0]->pivot->liked_status == 0 ){
+//            $place->category->likes =  $place->category->getOriginal('likes') + 1;
+//            $place->category->save();
+
+            $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + $likedStatus],
+                ['likes' => $place->category->getOriginal('likes') + $unlikedStatus]);
+
+
+
+        }elseif($unlikedStatus == 1  && $place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places[0]->pivot->liked_status ==1 ){
+//            dd(auth()->user->pivot->liked_status);
+//            $place->category->likes =  $place->category->getOriginal('likes') - 1;
+//
+//            $place->category->save();
+
+            $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1]
+            );
+
+        }elseif(!$place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places->pivot->likes_status == 0){
+            $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - $unlikedStatus , 'likes' => $place->category->getOriginal('likes') + $likedStatus]
+            );
+
         }
         $place->push();
+           DB::commit();
+
+
+
+
+           /****************/
+
+           if($likedStatus == 1 && !$place->users_liked_places->contains(auth()->id())) {
+           }elseif($unlikedStatus == 1 && $place->users_liked_places->contains(auth()->id()) && $place->users_liked_places->liked_status ==1 ){
+
+           }elseif ($likedStatus == 1 && $place->users_liked_places->contains(auth()->id()) && $place->users_liked_places->liked_status ==0 ){
+               $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + 1]
+               );
+
+           }
+
+
+           /**************/
+
 
         return redirect()->back();
 //    dd($r->pivot->liked_status);
@@ -94,61 +152,16 @@ class PlaceController extends Controller
 
 //        $comment->comments()->attach( $product->id , ['qty' => $request->total_qty , 'sale_unit_id' => $product->sale_unit_id ] );
 //        $sale->products()->attach( $product->id , ['qty' => $request->total_qty , 'sale_unit_id' => $product->sale_unit_id ] );
+}
+
+       catch (\Exception $e) {
+           DB::rollBack();
+           return redirect()->back()->withErrors(['error' => $e->getMessage()] );
+
+       }
+
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Place $place)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Place $place)
-    {
-        //
-    }
 }

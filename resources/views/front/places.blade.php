@@ -25,19 +25,19 @@
                     @csrf
                     <div class="d-flex justify-content-around">
                         <select name="cat_id" class="form-select rounded-0 text-center txt-col-main uk-text-bolder py-3" aria-label="Default select example">
-                            <option selected>Categories</option>
+                            <option selected>{{trans('front_places.Categories')}}</option>
                             @foreach($cats as $cat)
                             <option value="{{$cat->id}}">{{$cat->title}}</option>
                                 @endforeach
                         </select>
                         <select name="region_id"  class="form-select rounded-0 text-center txt-col-main uk-text-bolder py-3" aria-label="Default select example">
-                            <option selected>All Regions</option>
+                            <option selected>{{trans('front_places.all_regions')}}</option>
                             @foreach($regions as $region)
                             <option value="{{$region->id}}">{{$region->government}} {{$region->city}} {{$region->district}}</option>
                                 @endforeach
                         </select>
                     </div>
-                    <a  class="btn btn-primary w-100 rounded-0 uk-text-bolder py-3"><input type="submit" value="search" /></a>
+                    <a  class="btn btn-primary w-100 rounded-0 uk-text-bolder py-3"><input type="submit" value="{{trans('front_places.search')}}" /></a>
                 </form>
             </div>
             <!-- pleaces -->
@@ -45,6 +45,7 @@
                 <div class="row">
                     @isset($places)
                         @foreach($places as $place)
+                            @if($place->status == (int)1)
 
                             <!-- place -->
                             <div class="uk-cover-container col-md-6 col-12 my-3">
@@ -63,18 +64,23 @@
                                 </div>
                                 <div class="uk-position-top-right d-flex px-3">
                                     @php
+                                    $likes = array();
                                     foreach($place->users_liked_places as $k) {
                                             if($k->pivot->liked_status === 1){
                                             $likes[] = $k->pivot->liked_status;
+                                            }else{
+                                            $likes[] = null;
                                             }
+
                                         }
                                         @endphp
-                                    <h2 class="text-white">like {{$place->likes + count($likes)}}</h2>
+                                    <h2 class="text-white">{{trans('front_places.like')}} {{$place->likes + count($likes)}}</h2>
                                 </div>
                                 <div class="uk-position-bottom-center d-flex align-items-baseline pb-4 uk-panel">
                                     <p class="text-white text-center p-3 p-md-4 p-sm-5">{{$place->desc}}.</p>
                                 </div>
                             </div>
+                            @endif
                         @endforeach
                        {{$places->links()}}
                     @endisset

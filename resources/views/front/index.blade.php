@@ -16,8 +16,8 @@
         <div class="row">
             <div class="para-header col-lg-4 col-md-12 order-1 order-lg-0 position-relative">
                 <div class="container">
-                    <p class="uk-text-bolder">Gharda2wy.com</p>
-                    <p class="uk-text-bolder">{{$mains->title1}}<span class="txt-col-main">الافضل</span></p>
+                    <p class="uk-text-bolder">{{$mains->website}}</p>
+                    <p class="uk-text-bolder">{{$mains->title1}}<span class="txt-col-main">{{trans('front_index.the_best')}}</span></p>
                     <p class="txt-size-18 uk-text-bolder txt-col-main">{{$mains->title2}}</p>
                     <p class="txt-size-10 txt-col-second">{{$mains->top_desc}} </p>
                 </div>
@@ -28,7 +28,7 @@
             <form  method="get" action="{{route('get.cat.region')}}"   class="search col-lg-5 col-12 my-4 m-auto border border-primary p-0 shadow w-85-md">
                 <div class="d-flex justify-content-around">
                     <select name="cat_id" class="form-select rounded-0 text-center txt-col-main uk-text-bolder py-3" aria-label="Default select example">
-                        <option selected>الاقسام</option>
+                        <option selected>{{trans('front_index.the_categories')}}</option>
                         @isset($cats)
 
                             @foreach($cats as $cat)
@@ -37,7 +37,7 @@
                         @endisset
                     </select>
                     <select name="region_id" class="form-select rounded-0 text-center txt-col-main uk-text-bolder py-3" aria-label="Default select example">
-                        <option selected>الكل </option>
+                        <option selected>{{trans('front_index.all_cats')}} </option>
                         @isset($regions)
                             @foreach($regions as $region)
                         <option value="{{$region->id}}">{{$region->government}} , {{$region->city}} , {{$region->district}}</option>
@@ -45,7 +45,7 @@
                             @endisset
                     </select>
                 </div>
-                <input type="submit" class="btn btn-primary w-100 rounded-0 uk-text-bolder py-3" value="بحث" />
+                <input type="submit" class="btn btn-primary w-100 rounded-0 uk-text-bolder py-3" value="{{trans('front_index.search')}}" />
             </form>
         </div>
     </div>
@@ -62,8 +62,8 @@
         <div class="main-cate">
             <div class="head-border">
                 <h3 class="text-center uk-text-bolder">
-                    ابحث عن طريق
-                    <span class="txt-col-main">الاقسام</span>
+                    {{trans('front_index.search_by')}}
+                    <span class="txt-col-main"> {{trans('front_index.the_categories')}}</span>
                 </h3>
             </div>
 {{--            {{dd($frontCats)}}--}}
@@ -79,10 +79,10 @@
                             <h1 class="text-white txt-size-sm-24">{{$frontCats['right_upper_cat']->title}}</h1>
                         </div>
                         <div class="uk-position-bottom-left d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">اعجاب {{$frontCats['right_upper_cat']->likes}}</p>
+                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">{{trans('front_index.like')}} {{$frontCats['right_upper_cat']->likes}}</p>
                         </div>
                         <div class="uk-position-bottom-right d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">{{$frontCats['right_upper_cat']->countPlaces}} مكان</p>
+                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">{{$frontCats['right_upper_cat']->places_count}} {{trans('front_index.places')}}</p>
                         </div>
                     </div>
                     <div class="uk-cover-container col-6">
@@ -93,10 +93,10 @@
                             <h1 class="text-white txt-size-sm-24">{{$frontCats['left_upper_cat']->title}}</h1>
                         </div>
                         <div class="uk-position-bottom-left d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">اعجاب {{$frontCats['left_upper_cat']->likes}}</p>
+                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">{{trans('front_index.like')}} {{$frontCats['left_upper_cat']->likes}}</p>
                         </div>
                         <div class="uk-position-bottom-right d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">مكان {{$frontCats['left_upper_cat']->countPlaces}}</p>
+                            <p class="text-white txt-size-sm-12 uk-text-bold px-4 px-sm-5">{{trans('front_index.places')}} {{$frontCats['left_upper_cat']->places_count}}</p>
                         </div>
                     </div>
                 </div>
@@ -112,8 +112,8 @@
                 </a>
                 <div class="uk-position-top-right pt-4 px-5 uk-panel">
                     <h1 class="text-white">{{$frontCats['screen_cat']->title}}</h1>
-                    <p class="text-white uk-text-bold">اعجاب {{$frontCats['screen_cat']->likes}}</p>
-                    <p class="text-white uk-text-bold">مكان {{$frontCats['screen_cat']->countPlaces}}</p>
+                    <p class="text-white uk-text-bold">{{trans('front_index.like')}} {{$frontCats['screen_cat']->likes}}</p>
+                    <p class="text-white uk-text-bold">{{trans('front_index.places')}} {{$frontCats['screen_cat']->places_count}}</p>
                 </div>
             </div>
                 @endisset
@@ -132,10 +132,10 @@
                             <h1 class="text-white txt-size-sm-24">{{$frontCats['bottom_big_cat']->title}}</h1>
                         </div>
                         <div class="uk-position-bottom-left d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white uk-text-bold px-4 px-sm-5">اعجاب {{$frontCats['bottom_big_cat']->likes}}</p>
+                            <p class="text-white uk-text-bold px-4 px-sm-5">{{trans('front_index.like')}} {{$frontCats['bottom_big_cat']->likes}}</p>
                         </div>
                         <div class="uk-position-bottom-right d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white uk-text-bold px-4 px-sm-5">مكان {{$frontCats['bottom_big_cat']->countPlaces}}</p>
+                            <p class="text-white uk-text-bold px-4 px-sm-5">{{trans('front_index.places')}} {{$frontCats['bottom_big_cat']->places_count}}</p>
                         </div>
                     </div>
                     @endisset
@@ -150,10 +150,10 @@
                                     <h1 class="text-white uk-text-bold txt-size-md-12">{{$frontCats['bottom_left_upper_cat']->title}}</h1>
                                 </div>
                                 <div class="uk-position-bottom-left d-flex align-items-baseline pb-4 uk-panel">
-                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">اعجاب {{$frontCats['bottom_left_upper_cat']->likes}}</p>
+                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">{{trans('front_index.like')}} {{$frontCats['bottom_left_upper_cat']->likes}}</p>
                                 </div>
                                 <div class="uk-position-bottom-right d-flex align-items-baseline pb-4 uk-panel">
-                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">مكان {{$frontCats['bottom_left_upper_cat']->countPlaces}}</p>
+                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">{{trans('front_index.places')}} {{$frontCats['bottom_left_upper_cat']->places_count}}</p>
                                 </div>
                             </div>
                                 @endisset
@@ -167,10 +167,10 @@
                                     <h1 class="text-white uk-text-bold txt-size-md-12 pt-5">{{$frontCats['bottom_left_lower_cat']->title}}</h1>
                                 </div>
                                 <div class="uk-position-bottom-left d-flex align-items-baseline pb-4 uk-panel">
-                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">اعجاب {{$frontCats['bottom_left_lower_cat']->likes}}</p>
+                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">{{trans('front_index.like')}} {{$frontCats['bottom_left_lower_cat']->likes}}</p>
                                 </div>
                                 <div class="uk-position-bottom-right d-flex align-items-baseline pb-4 uk-panel">
-                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">مكان {{$frontCats['bottom_left_lower_cat']->countPlaces}}</p>
+                                    <p class="text-white txt-size-md-12 uk-text-bold d-none d-sm-block px-0 px-md-4 px-sm-0 ">{{trans('front_index.places')}} {{$frontCats['bottom_left_lower_cat']->places_count}}</p>
                                 </div>
                             </div>
                                 @endisset
@@ -192,10 +192,10 @@
                             <h1 class="text-white txt-size-sm-24">{{$cat->title}}</h1>
                         </div>
                         <div class="uk-position-bottom-left d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white txt-size-sm-12  uk-text-bold px-3 px-sm-5"> اعجاب    {{$cat->likes}}</p>
+                            <p class="text-white txt-size-sm-12  uk-text-bold px-3 px-sm-5"> {{trans('front_index.like')}}    {{$cat->likes}}</p>
                         </div>
                         <div class="uk-position-bottom-right d-flex align-items-baseline pb-4 uk-panel">
-                            <p class="text-white txt-size-sm-12  uk-text-bold px-3 px-sm-5">مكان {{$cat->countPlaces}}</p>
+                            <p class="text-white txt-size-sm-12  uk-text-bold px-3 px-sm-5">{{trans('front_index.places')}} {{$cat->places_count}}</p>
                         </div>
 
                     </div>
@@ -207,7 +207,7 @@
         <!-- best place -->
         <div class="best-place">
             <div class="head-border">
-                <h3 class="text-center uk-text-bolder">افضل اماكن <span class="txt-col-main">الغردقه</span> </h3>
+                <h3 class="text-center uk-text-bolder"> {{trans('front_index.the_best_places')}} <span class="txt-col-main">{{trans('front_index.hurgada')}}</span> </h3>
             </div>
             <div class="container">
                 <div class="my-4">
@@ -226,7 +226,7 @@
                                 <img src="{{asset('assets/images_front/places/')}}/{{$addition->place->photos()[0]}}" class="rounded-circle px-1" style="width: 55px; height: 50px;" alt="">
                             </div>
                             <div class="uk-position-top-right d-flex px-3">
-                                <h2 class="text-white">اعجاب {{$addition->place->likes}}</h2>
+                                <h2 class="text-white"> {{trans('front_index.like')}}  {{$addition->place->likes}}</h2>
                             </div>
                             <div class="uk-position-bottom-center d-flex align-items-baseline pb-4 uk-panel">
                                 <p class="text-white text-center p-3 p-md-4 p-sm-5">{{$addition->desc}}ا.</p>
@@ -243,7 +243,7 @@
             <div class="container">
                 <!-- Experiance section -->
                 <div class="row">
-                    <h3 class="text-center uk-text-bolder">شاركنا خبراتك</h3>
+                    <h3 class="text-center uk-text-bolder"> {{trans('front_index.share_with_us_your_experience')}}  </h3>
                     <div class="col-md-4 col-12 my-4">
                         <div class="text-center ">
                             <img src="{{asset('assets/images_bg_front/SVGGHARD/Group 431.svg')}}" class="w-25" alt="">
@@ -265,12 +265,14 @@
                 </div>
                 <!-- join us section -->
                 <span class="text-white"><i></i> </span>
+                @if(auth()->id() == null)
                 <div class="join text-center mt-2">
                     <p class="uk-text-bold txt-size-18">
-                        انضم الي Gharda2wy.com
+                          {{trans('front_index.join')}} {{$mains->website}}
                     </p>
-                    <a href="#modal-group-1" class="btn bg-main text-white" uk-toggle>انضم الينا</a>
+               <a href="#modal-group-1" class="btn bg-main text-white" uk-toggle>{{trans('front_index.join_us')}}</a>
                 </div>
+                @endif
             </div>
         </div>
         </div>

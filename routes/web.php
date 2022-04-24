@@ -16,63 +16,66 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 */
 
-//Route::get('/login', 'HomeController@index')->middleware('guest')->name('login.show');
-Route::get('/login/seller', 'Auth\LoginController@showSellerLoginForm')->middleware('guest:seller');
-Route::post('/login/seller', 'Auth\LoginController@sellerLogin')->middleware('guest:seller');
-
-Route::get('/register/seller', 'Auth\RegisterController@showSellerRegisterationForm')->middleware('guest:seller');
-Route::post('/register/seller', 'Auth\RegisterController@createSeller')->middleware('guest:seller');
-/***********************************/
-Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->middleware('guest');
-Route::post('/login/admin', 'Auth\LoginController@adminLogin')->middleware('guest');
-/****************************/
-Route::get('/login/super-admin', 'Auth\LoginController@showSuperAdminLoginForm')->middleware('guest');
-Route::post('/login/super-admin', 'Auth\LoginController@superAdminLogin')->middleware('guest');
-/**************************/
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/logout' , 'HomeController@logout')->name('logout');
+    //Route::get('/login', 'HomeController@index')->middleware('guest')->name('login.show');
 
 
-Route::get('/empty' , function (){
-    return view('front.index');
-    $place = Place::latest()->first();
-    dd($place ->likes_cats(28));
-    return view('index_empty');
-});
+    Route::post('/login/loginByPhone', 'Auth\LoginController@loginByPhone')->name('login.email.phone')->middleware('guest');
+
+    Route::get('/login/seller', 'Auth\LoginController@showSellerLoginForm')->middleware('guest:seller');
+    Route::post('/login/seller', 'Auth\LoginController@sellerLogin')->middleware('guest:seller');
+    /***********************************/
+    Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->middleware('guest:admin');
+    Route::post('/login/admin', 'Auth\LoginController@adminLogin')->middleware('guest:admin');
+    /****************************/
+    Route::get('/login/super-admin', 'Auth\LoginController@showSuperAdminLoginForm')->middleware('guest:super-admin');
+    Route::post('/login/super-admin', 'Auth\LoginController@superAdminLogin')->middleware('guest:super-admin');
+    /**************************/
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/logout' , 'HomeController@logout')->name('logout');
+    ############################################################################################
 
 
 
 
-Auth::routes();
 
-Route::get('/perms' , function (){
-    return view('admin.permessions');
-});
 
-Route::group(
+    Auth::routes();
+
+    Route::get('/perms' , function (){
+        return view('admin.permessions');
+    });
+    ######################################customer start############################################################
+    Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){ //...
+
+    /****************************end search****************************/
     Route::get('search/seller' , 'Admin\PlaceController@search')->name('search.seller');
     Route::get('search/places' , 'Admin\AdditionalController@search')->name('search.places');
-
     Route::get('search/region/branch' , 'Admin\PlaceRegionController@search')->name('search.region.branch');
+    /****************************end search****************************/
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'Front\MainController@index');
-
-    Route::resource('main' , 'Front\MainController');
     Route::get('place_page/{id}' , 'Front\PlaceController@index')->name('my_page');
-
     Route::get('news' , 'Front\NewsController@index')->name('news.front');
     Route::get('places/{catId}' , 'Front\MainController@getPlacesByCatId');
 //    Route::get('places/{catId}/{region_id}' , 'Front\MainController@getPlacesByCatIdRegionId');
     Route::get('places' , 'Front\MainController@getPlacesByCatIdRegionId')->name('get.cat.region');
+
+    /******************comments start*************************/
     Route::post('comment/{id}' , 'Front\PlaceController@makeComment')->name('comment.submit')->middleware('auth');
+    Route::get('comments/{id}' , 'Front\CommentController@index')->name('get.comments.place');
+    /******************comments end*************************/
+
+    Route::resource('main' , 'Front\MainController');
     Route::resource('apply' , 'Front\ApplyPlaceController');
     Route::resource('about' , 'Front\AboutController');
+    #########################################customer end##############################################
+
+
 
 
 
@@ -86,15 +89,10 @@ Route::group(
             Route::get('/unseen', 'Admin\SellerController@unseenSellers');
             Route::get('/un_active', 'Admin\SellerController@unActiveSellers');
             Route::get('/active', 'Admin\SellerController@ActiveSellers');
-
-            Route::get('/dashboard', function () {
-                return view('dashboard');
-            });
-
+            Route::get('/', function () {return view('admin.dashboard');});
             Route::get('/main', function () {
                 return view('admin.main');
             })->middleware('auth:seller');
-
         });
     ####################################Admin end###############################
 
@@ -111,16 +109,17 @@ Route::group(
 
         Route::resource('/roles' , 'Admin\RoleController');
         Route::resource('/main' , 'Admin\MainPageController');
-        Route::resource('/sellers' , 'Admin\SellerController');
-        Route::get('/unseen', 'Admin\SellerController@unseenSellers');
-        Route::get('/un_active/sellers', 'Admin\SellerController@unActiveSellers');
-        Route::get('/active/sellers', 'Admin\SellerController@ActiveSellers');
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        });
         Route::resource('category' , 'Admin\CategoryController');
         Route::resource('places' , 'Admin\PlaceController');
         Route::resource('about_page' , 'Admin\AboutController');
+        Route::resource('footer' , 'Admin\FooterController');
+
+
+        /******************sellers start****************/
+        Route::resource('/sellers' , 'Admin\SellerController');
+        Route::get('/un_active/sellers', 'Admin\SellerController@unActiveSellers');
+        Route::get('/active/sellers', 'Admin\SellerController@ActiveSellers');
+        /******************sellers end****************/
 
         //here
         /**********************apply_place_part**************************/
@@ -132,7 +131,6 @@ Route::group(
         Route::get('accepted_applications', 'Admin\ApplyPlaceController@acceptedApplications');
         Route::get('rejected_applications', 'Admin\ApplyPlaceController@rejectedApplications');
         Route::get('no_action_yet_applications', 'Admin\ApplyPlaceController@noActionYetApplications');
-
         /**********************end apply_place_part**************************/
 
 
@@ -143,18 +141,23 @@ Route::group(
         Route::resource('newscats' , 'Admin\NewsCatsController');
 
 
-
+        /********************branches part start ********************************************/
         Route::get('/branch/{place}' , 'Admin\PlaceRegionController@index')->name('places.add.regions');
         Route::post('/branch/store' , 'Admin\PlaceRegionController@store')->name('places.add.regions.store');
-        Route::get('/branch/{place}/{placeRegion}' , 'Admin\PlaceRegionController@editBranch')->name('branches.edit');
-        Route::post('/branch/{place}/{placeRegion}' , 'Admin\PlaceRegionController@updateBranch')->name('branches.update');
-
         Route::get('/branches/all/{place}' , 'Admin\PlaceRegionController@showAll')->name('branches.show');
-        Route::get('/branch/delete/{id}' , 'Admin\PlaceRegionController@destroy')->name('branch.destroy');
+        Route::post('/branch/delete/{id}' , 'Admin\PlaceRegionController@destroyRegion')->name('branch.destroy.my');
+        /********************branches part end ********************************************/
+
+        /***********comments***********/
+        Route::resource('comments' , 'Admin\CommentController');
+        Route::get('/comments_of_place/{place_id}' , 'Admin\ApplyPlaceController@getComments')->name('get.comments');
 
 
+        /***************************/
 
-//        Route::get('/branch/{place}' , 'Admin\PlaceRegionController@index')->name('places.add.regions');
+        Route::get('/', function () {return view('admin.dashboard');});
+
+
 
 
     });
@@ -167,29 +170,24 @@ Route::group(
 
 
 
-
     ################################seller start###################################
     Route::group(['prefix'=> 'seller' , 'middleware' => 'auth:seller'] , function (){
 
-        Route::get('/main', function () {
-            return view('admin.main');
-        })->middleware('auth:seller');
+//        Route::get('/main', function () {
+//            return view('admin.main');
+//        })->middleware('auth:seller');
+
+        Route::resource('places_sellers' , 'Seller\PlaceController');
+        Route::get('add_branch/{place_id}' , 'Seller\PlaceRegionController@addBranch')->name('add.branch.seller');
+        Route::post('add_branch/submit' , 'Seller\PlaceRegionController@addBranchSubmit')->name('add.branch.seller.submit');
+        Route::get('edit_branch/{place_id}/{place_region_id}' , 'Seller\PlaceRegionController@editBranch')->name('edit.branch.seller');
+        Route::post('edit_branch/{place_id}/{place_region_id}' , 'Seller\PlaceRegionController@editBranchSubmit')->name('edit.branch.seller.submit');
+        Route::get('show_branch/{place_id}' , 'Seller\PlaceRegionController@showAll')->name('show.branch.seller');
+        Route::post('/branch/delete/{id}' , 'Seller\PlaceRegionController@destroy')->name('branch.destroy.seller');
+        Route::get('/', function () {return view('seller.dashboard');});
 
     });
     ####################################seller end###############################
-
-
-
-
-
-    ################################user start###################################
-    Route::group(['prefix' => 'admin'] , function (){
-
-
-    });
-    ####################################user end###############################
-
-
 
 
 

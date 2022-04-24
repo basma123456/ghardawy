@@ -25,12 +25,6 @@ class SellerController extends Controller
         return  view('admin.sellers.index' , compact('sellers'));
     }
     /*******************************/
-    public function unseenSellers()
-    {
-        $sellers = Seller::select(['id' ,'name' , 'email' , 'role_id' , 'status' , 'created_at' , 'updated_at'])->where('admin_id' , null)->where('super_admin_id' , null)->latest()->paginate(10);
-        return  view('admin.sellers.index' , compact('sellers'));
-    }
-    /*******************************/
     public function unActiveSellers()
     {
         $sellers = Seller::select(['id' ,'name' , 'email' , 'role_id' , 'status' , 'created_at' , 'updated_at'])->where('status' , 0)->latest()->paginate(10);
@@ -75,12 +69,12 @@ class SellerController extends Controller
 
 
             $role =  Seller::create([
-                'name' => ['ar' =>  $request->Name_ar , 'en' => $request->Name_en],
+                'name' => ['ar' =>  $request->Name_ar , 'en' => $request->Name_en , 'ru' => $request->Name_ru],
                 'email' =>$request->Email,
                 'joining_date' =>$request->joining_date,
 
                 'password' =>bcrypt($request->Password),
-                'address' => ['ar' =>  $request->Address_ar , 'en' => $request->Address_en],
+                'address' => ['ar' =>  $request->Address_ar , 'en' => $request->Address_en   , 'ru' => $request->Address_ru],
                 'role_id' => $role_id,
                 'super_admin_id' => $super_admin,
                 'admin_id' => $admin,
@@ -134,11 +128,11 @@ class SellerController extends Controller
 //           dd(  Auth::guard('seller')->user()->name);
 
 //            dd($this->getGuard());
-                $seller->name = ['ar' =>  $request->Name_ar , 'en' => $request->Name_en];
+                $seller->name = ['ar' =>  $request->Name_ar , 'en' => $request->Name_en , 'ru' => $request->Name_ru ];
                 $seller->email  = $request->Email;
                 $seller->joining_date =$request->joining_date;
                 $seller->password = bcrypt($request->Password);
-                $seller->address = ['ar' =>  $request->Address_ar , 'en' => $request->Address_en];
+                $seller->address = ['ar' =>  $request->Address_ar , 'en' => $request->Address_en , 'ru' => $request->Address_ru];
                 /************/
                 $request->status == (int)1 ? $seller->role_id = (int)3 : $seller->role_id = null;
                 /**********/

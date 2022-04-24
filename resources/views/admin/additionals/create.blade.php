@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_additions.Add_Teacher') }}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_additions.Add_Teacher') }}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -47,18 +47,18 @@
                         <div class="col-md-12">
                             <br>
 
-                            <form action="{{route('additions.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{  \LaravelLocalization::localizeURL(route('additions.store')) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="title_ar">{{trans('Teacher_trans.title_ar')}}</label>
+                                        <label for="title_ar">{{trans('admin_additions.title_ar')}}</label>
                                         <input type="text"  value="{{old('title_ar')}}" name="title_ar" class="form-control">
                                         @error('title_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="title_en">{{trans('Teacher_trans.title_en')}}</label>
+                                        <label for="title_en">{{trans('admin_additions.title_en')}}</label>
                                         <input type="text"  value="{{old('title_en')}}" name="title_en" class="form-control">
                                         @error('title_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="title_ru">{{trans('Teacher_trans.title_ru')}}</label>
+                                        <label for="title_ru">{{trans('admin_additions.title_ru')}}</label>
                                         <input type="text"  value="{{old('title_ru')}}" name="title_ru" class="form-control">
                                         @error('title_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -81,14 +81,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="desc_ar">{{trans('Teacher_trans.desc_ar')}}</label>
+                                        <label for="desc_ar">{{trans('admin_additions.desc_ar')}}</label>
                                         <textarea name="desc_ar"   class="form-control" rows="4">{{old('desc_ar')}}</textarea>
                                         @error('desc_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="desc_en">{{trans('Teacher_trans.desc_en')}}</label>
+                                        <label for="desc_en">{{trans('admin_additions.desc_en')}}</label>
                                         <textarea name="desc_en"  class="form-control" rows="4">{{old('desc_en')}}</textarea>
                                         @error('desc_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -96,7 +96,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="desc_ru">{{trans('Teacher_trans.desc_ru')}}</label>
+                                        <label for="desc_ru">{{trans('admin_additions.desc_ru')}}</label>
                                         <textarea name="desc_ru" class="form-control" rows="4">{{old('desc_ru')}}</textarea>
                                         @error('desc_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -116,7 +116,7 @@
 
 
                                 <div class="text-center w-25 search-custom">
-                                    <input type="text" name="search" id="search" class="form-control"  value="{{old('search')}}" placeholder="search here" /><span class='hide btn btn-secondary btn-sm float-right' id='x_dismiss'>x</span>
+                                    <input type="text" name="search" id="search" class="form-control"  value="{{old('search')}}" placeholder="{{trans('admin_additions.search_here')}}" /><span class='hide btn btn-secondary btn-sm float-right' id='x_dismiss'>x</span>
                                 </div>
                                 <div id="search_list">
 
@@ -129,7 +129,7 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="my_seller_name">{{trans('Teacher_trans.seller')}}</label>
+                                        <label for="my_seller_name">{{trans('admin_additions.seller')}}</label>
                                         <input type="text" value="{{old('my_seller_name')}}" class="form-control" name="my_seller_name" id="my_seller_name">
                                         <input type="hidden"  value="{{old('place_id')}}" name="place_id" id="my_place_id">
                                         @error('place_id')
@@ -145,12 +145,12 @@
 
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <label for="type">{{trans('Teacher_trans.type')}}</label>
+                                        <label for="type">{{trans('admin_additions.type')}}</label>
                                         <select class="custom-select my-1 mr-sm-2 form-control" style="height: max-content" name="type">
-                                            <option>{{trans('Parent_trans.Choose')}} <span class="text-dark">&#x26DB;</span></option>
-                                                <option value='ads' {{ old('type') == 'ads' ? 'selected' : '' }}>Ads</option>
-                                            <option value="best" {{ old('type') == 'best' ? 'selected' : '' }}>Best Places</option>
-                                            <option value="special" {{ old('type') == 'special' ? 'selected' : '' }}>Special Places</option>
+                                            <option>{{trans('admin_additions.choose')}}<span class="text-dark">&#x26DB;</span></option>
+                                                <option value='ads' {{ old('type') == 'ads' ? 'selected' : '' }}>{{trans('admin_additions.ads')}}</option>
+                                            <option value="best" {{ old('type') == 'best' ? 'selected' : '' }}>{{trans('admin_additions.best_places')}}</option>
+                                            <option value="special" {{ old('type') == 'special' ? 'selected' : '' }}>{{trans('admin_additions.special_places')}}</option>
 
                                         </select>
                                         @error('type')
@@ -164,11 +164,11 @@
 
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <label for="type">{{trans('Teacher_trans.status')}}</label>
+                                        <label for="type">{{trans('admin_additions.status')}}</label>
                                         <select class="custom-select my-1 mr-sm-2 form-control" style="height: max-content" name="status">
-                                            <option>{{trans('Parent_trans.Choose')}} <span class="text-dark">&#x26DB;</span></option>
-                                            <option value="{{(int)1}}" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                                            <option value='{{(int)0}}' {{ old('status') == '0' ? 'selected' : '' }}>un active</option>
+                                            <option>{{trans('admin_additions.Choose')}} <span class="text-dark">&#x26DB;</span></option>
+                                            <option value="{{(int)1}}" {{ old('status') == '1' ? 'selected' : '' }}>{{trans('admin_additions.active')}}</option>
+                                            <option value='{{(int)0}}' {{ old('status') == '0' ? 'selected' : '' }}>{{trans('admin_additions.deactive')}}</option>
 
                                         </select>
                                         @error('type')
@@ -188,7 +188,7 @@
                                 <br>
 
                                 <br>
-                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('Parent_trans.Next')}}</button>
+                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('admin_additions.next')}}</button>
                             </form>
                         </div>
                     </div>

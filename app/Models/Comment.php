@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -17,6 +18,11 @@ class Comment extends Model
     public function place()
     {
         return $this->belongsTo(Place::class , 'place_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::Class , 'user_id');
     }
 
 

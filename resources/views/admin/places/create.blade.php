@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_places.add_place') }}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_places.Add_Teacher') }}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -44,18 +44,19 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{route('places.store')}}" method="post" enctype="multipart/form-data">
+
+                            <form action="{{\LaravelLocalization::localizeURL(route('places.store'))}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="title_ar">{{trans('Teacher_trans.title_ar')}}</label>
+                                        <label for="title_ar">{{trans('admin_places.title_ar')}}</label>
                                         <input type="text"  value="{{old('title_ar')}}" name="title_ar" class="form-control">
                                         @error('title_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="title_en">{{trans('Teacher_trans.title_en')}}</label>
+                                        <label for="title_en">{{trans('admin_places.title_en')}}</label>
                                         <input type="text"  value="{{old('title_en')}}" name="title_en" class="form-control">
                                         @error('title_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -63,7 +64,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="title_ru">{{trans('Teacher_trans.title_ru')}}</label>
+                                        <label for="title_ru">{{trans('admin_places.title_ru')}}</label>
                                         <input type="text"  value="{{old('title_ru')}}" name="title_ru" class="form-control">
                                         @error('title_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -75,7 +76,7 @@
                                 <!--email-->
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="email">{{trans('Teacher_trans.email')}}</label>
+                                        <label for="email">{{trans('admin_places.email')}}</label>
                                         <input type="email"  value="{{old('email')}}" name="email" class="form-control">
                                         @error('email')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -88,7 +89,7 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="phone">{{trans('Teacher_trans.phone')}}</label>
+                                        <label for="phone">{{trans('admin_places.phone')}}</label>
                                         <input type="text"  value="{{old('phone')}}" name="phone" class="form-control">
                                         @error('phone')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -102,14 +103,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="address_ar">{{trans('Teacher_trans.address_ar')}}</label>
+                                        <label for="address_ar">{{trans('admin_places.address_ar')}}</label>
                                         <textarea name="address_ar"   class="form-control" rows="4">{{old('address_ar')}}</textarea>
                                         @error('address_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="address_en">{{trans('Teacher_trans.address_en')}}</label>
+                                        <label for="address_en">{{trans('admin_places.address_en')}}</label>
                                         <textarea name="address_en"  class="form-control" rows="4">{{old('address_en')}}</textarea>
                                         @error('address_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -117,7 +118,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="address_ru">{{trans('Teacher_trans.address_ru')}}</label>
+                                        <label for="address_ru">{{trans('admin_places.address_ru')}}</label>
                                         <textarea name="address_ru" class="form-control" rows="4">{{old('address_ru')}}</textarea>
                                         @error('address_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -129,14 +130,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="desc_ar">{{trans('Teacher_trans.desc_ar')}}</label>
+                                        <label for="desc_ar">{{trans('admin_places.desc_ar')}}</label>
                                         <textarea name="desc_ar" class="form-control" rows="4">{{old('desc_ar')}}</textarea>
                                         @error('desc_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="desc_en">{{trans('Teacher_trans.desc_en')}}</label>
+                                        <label for="desc_en">{{trans('admin_places.desc_en')}}</label>
                                         <textarea name="desc_en" class="form-control" rows="4">{{old('desc_en')}}</textarea>
                                         @error('desc_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -144,7 +145,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="desc_ru">{{trans('Teacher_trans.desc_ru')}}</label>
+                                        <label for="desc_ru">{{trans('admin_places.desc_ru')}}</label>
                                         <textarea name="desc_ru" class="form-control" rows="4">{{old('desc_ru')}}</textarea>
                                         @error('desc_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -158,14 +159,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="likes">{{trans('Teacher_trans.likes')}}</label>
+                                        <label for="likes">{{trans('admin_places.likes')}}</label>
                                         <input type="number" name="likes"  value="{{old('likes')}}" class="form-control"  min="0">
                                         @error('likes')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="unlikes">{{trans('Teacher_trans.unlikes')}}</label>
+                                        <label for="unlikes">{{trans('admin_places.unlikes')}}</label>
                                         <input type="number" name="unlikes"  value="{{old('unlikes')}}" class="form-control" min="0" >
                                         @error('unlikes')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -175,11 +176,11 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <label for="status">{{trans('Teacher_trans.status')}}</label>
+                                        <label for="status">{{trans('admin_places.status')}}</label>
                                         <select class="custom-select my-1 mr-sm-2 form-control" style="height: max-content" name="status">
-                                            <option disabled>{{trans('Parent_trans.Choose')}} <span class="text-dark">&#x26DB;</span></option>
-                                            <option value="{{(int)0}}" {{ old('status') == (int)0 ? 'selected' : '' }}>{{trans('Parent_trans.deactive')}}</option>
-                                            <option value="{{(int)1}}" {{ old('status') == (int)1 ? 'selected' : '' }}>{{trans('Parent_trans.active')}}</option>
+                                            <option disabled>{{trans('admin_places.Choose')}} <span class="text-dark">&#x26DB;</span></option>
+                                            <option value="{{(int)0}}" {{ old('status') == (int)0 ? 'selected' : '' }}>{{trans('admin_places.deactive')}}</option>
+                                            <option value="{{(int)1}}" {{ old('status') == (int)1 ? 'selected' : '' }}>{{trans('admin_places.active')}}</option>
 
                                         </select>
                                         @error('status')
@@ -194,7 +195,7 @@
                                 <div class="row">
 
                                     <div class="form-group col">
-                                        <label for="image">{{trans('Teacher_trans.image')}}</label>
+                                        <label for="image">{{trans('admin_places.image')}}</label>
                                         <input type="file" class="form-control"   name="image[]"  value="{{old('image.0')}}" />
                                         @error('image')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -203,7 +204,7 @@
 
 
                                     <div class="form-group col">
-                                        <label for="image2">{{trans('Teacher_trans.image2')}}</label>
+                                        <label for="image2">{{trans('admin_places.image2')}}</label>
                                         <input type="file" class="form-control" name="image[]"  value="{{old('image.1')}}" />
                                         @error('image2')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -213,14 +214,14 @@
                                 <br>
                                 <div class="row">
                                     <div class="form-group col">
-                                        <label for="image3">{{trans('Teacher_trans.image3')}}</label>
+                                        <label for="image3">{{trans('admin_places.image3')}}</label>
                                         <input type="file" class="form-control" name="image[]"  value="{{old('image.2')}}" />
                                         @error('image3')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group col">
-                                        <label for="image4">{{trans('Teacher_trans.image4')}}</label>
+                                        <label for="image4">{{trans('admin_places.image4')}}</label>
                                         <input type="file" class="form-control" name="image[]"  value="{{old('image.3')}}" />
                                         @error('image4')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -230,14 +231,14 @@
                                 <br>
                                 <div class="row">
                                     <div class="form-group col">
-                                        <label for="bg_image">{{trans('Teacher_trans.bg_image')}}</label>
+                                        <label for="bg_image">{{trans('admin_places.bg_image')}}</label>
                                         <input type="file" class="form-control" name="image[]"  value="{{old('image.4')}}" />
                                         @error('bg_image')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group col">
-                                        <label for="bottom_images1">{{trans('Teacher_trans.bottom_images1')}}</label>
+                                        <label for="bottom_images1">{{trans('admin_places.bottom_images1')}}</label>
                                         <input type="file" class="form-control" name="image[]"  value="{{old('image.5')}}" />
                                         @error('bottom_images[]')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -247,7 +248,7 @@
                                     <br>
 
                                     <div class="form-group col">
-                                        <label for="bottom_images2">{{trans('Teacher_trans.bottom_images2')}}</label>
+                                        <label for="bottom_images2">{{trans('admin_places.bottom_images2')}}</label>
                                         <input type="file" class="form-control" name="image[]"  value="{{old('image.6')}}" />
                                         @error('bottom_images[]')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -263,7 +264,7 @@
 
                                     <!-- menu images only -->
                                     <div class="form-group col">
-                                        <label for="menu[]">{{trans('Teacher_trans.menu[]')}}</label>
+                                        <label for="menu[]">{{trans('admin_places.menu[]')}}</label>
                                         <input type="file" class="form-control" name="menu[]"  value="{{old('menu.0')}}" />
                                         @error('menu[]')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -271,7 +272,7 @@
                                     </div>
                                     <!--------------------------->
                                     <div class="form-group col">
-                                        <label for="menu[]">{{trans('Teacher_trans.menu[]')}}</label>
+                                        <label for="menu[]">{{trans('admin_places.menu[]')}}</label>
                                         <input type="file" class="form-control" name="menu[]"  value="{{old('menu.1')}}" />
                                         @error('menu[]')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -280,7 +281,7 @@
                                     <!--------------------------->
 
                                     <div class="form-group col">
-                                        <label for="menu[]">{{trans('Teacher_trans.menu[]')}}</label>
+                                        <label for="menu[]">{{trans('admin_places.menu[]')}}</label>
                                         <input type="file" class="form-control" name="menu[]"  value="{{old('menu.2')}}" />
                                         @error('menu[]')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -289,7 +290,7 @@
                                     <!--------------------------->
 
                                     <div class="form-group col">
-                                        <label for="menu[]">{{trans('Teacher_trans.menu[]')}}</label>
+                                        <label for="menu[]">{{trans('admin_places.menu[]')}}</label>
                                         <input type="file" class="form-control" name="menu[]"  value="{{old('menu.3')}}" />
                                         @error('menu[]')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -304,7 +305,7 @@
 
                                 <div class="form-row">
 {{--                                    <div class="col">--}}
-{{--                                        <label for="seller_id">{{trans('Teacher_trans.seller_id')}}</label>--}}
+{{--                                        <label for="seller_id">{{trans('admin_places.seller_id')}}</label>--}}
 {{--                                        <select name="seller" class="form-control">--}}
 {{--                                            <option>Choose Seller</option>--}}
 {{--                                            @foreach($sellers as $seller)--}}
@@ -323,7 +324,7 @@
 
 
                                     <div class="text-center w-25 search-custom">
-                                        <input type="text" name="search" id="search" class="form-control"  value="{{old('search')}}" placeholder="search here" /><span class='hide btn btn-secondary btn-sm float-right' id='x_dismiss'>x</span>
+                                        <input type="text" name="search" id="search" class="form-control"  value="{{old('search')}}" placeholder="{{trans('admin_places.search_here')}}" /><span class='hide btn btn-secondary btn-sm float-right' id='x_dismiss'>x</span>
                                     </div>
                                     <div id="search_list">
 
@@ -336,7 +337,7 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="my_seller_name">{{trans('Teacher_trans.seller')}}</label>
+                                        <label for="my_seller_name">{{trans('admin_places.seller')}}</label>
                                         <input type="text" value="{{old('my_seller_name')}}" class="form-control" name="my_seller_name" id="my_seller_name">
                                         <input type="hidden"  value="{{old('seller_id')}}" name="seller_id" id="my_seller_id">
                                         @error('seller_id')
@@ -348,7 +349,7 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="category">{{trans('Teacher_trans.category')}}</label>
+                                        <label for="category">{{trans('admin_places.category')}}</label>
                                         <select name="category" class="form-control p-2">
                                             <option>Choose category</option>
                                             @foreach($categories as $category)
@@ -364,7 +365,7 @@
                                 <br>
                                     <div class="form-row">
                                         <div class="form-group col">
-                                            <label for="joining_date">joining_date:</label>
+                                            <label for="joining_date">{{trans('admin_places.joining_date')}} :</label>
                                             <input class="form-control" type="date"  value="{{old('joining_date')}}" id="joining_date" name="joining_date">
                                             @error('joining_date')
                                             <div class="alert alert-danger">{{$message}}</div>
@@ -375,7 +376,7 @@
                                 <br>
 
                                 <br>
-                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('Parent_trans.Next')}}</button>
+                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('admin_places.Next')}}</button>
                             </form>
                         </div>
                     </div>

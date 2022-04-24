@@ -391,3 +391,7 @@ footer {
 
 
 /* End footer */
+
+.circle{
+    border-radius:100px;
+}

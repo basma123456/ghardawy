@@ -44,11 +44,31 @@ class LoginController extends Controller
 
     }
 
+    public function loginByPhone(Request $request)
+    {
+
+                    $this->validate($request, [
+                        'phone' => 'nullable|string',
+                        'password' => 'required|min:6'
+                    ]);
+                    if (Auth::guard('web')->attempt([
+                        'phone' => $request->email,
+                        'password' => $request->password,
+                    ], $request->get('remember'))) {
+                        return redirect()->intended('/');
+                    }
+                    return redirect()->back()->withInput($request->only('phone', 'remember'));
+    }
+
+
 
     public function showAdminLoginForm()
     {
         return view('auth.login' , ['url' => 'admin']);
     }
+
+
+
 
     public function adminLogin(Request $request)
     {

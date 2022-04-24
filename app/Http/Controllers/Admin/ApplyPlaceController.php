@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\changeStatusApplicationRequest;
 use App\Models\ApplyPlace;
+use App\Models\Comment;
 use App\Traits\GuardTrait;
 use Illuminate\Http\Request;
 
@@ -114,7 +115,7 @@ class ApplyPlaceController extends Controller
             $applyPlace->super_admin_id = $this->getGuard() === 'super-admin' ? $this->getGuardId() : null;
 
             $applyPlace->save();
-            toastr()->success(__("Congratulations ,  You Have Updated Status  Successfully"));
+            toastr()->success(trans("global1.success_create"));
             return
                 redirect()->back();
 
@@ -136,7 +137,7 @@ class ApplyPlaceController extends Controller
     {
         try{
         $applyPlace->delete();
-        toastr()->success(__("You Have Been Deleted This Record Successfully"));
+        toastr()->success(trans("global1.success_create"));
         return redirect()->back();
         }
 
@@ -144,4 +145,14 @@ class ApplyPlaceController extends Controller
         return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    /****************comments****************/
+
+
+    public function getComments($place_id)
+    {
+        $comments = Comment::with('place')->with('user')->where('place_id' , $place_id)->latest()->paginate(5);
+        return view('admin.pages.comments.index' , compact('comments'));
+    }
+
 }

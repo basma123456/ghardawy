@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_categories.list_categories')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_categories.list_students')}}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -23,7 +23,7 @@
                         <div class="card card-statistics h-100">
                             <div class="card-body">
                                 <a href="{{route('category.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
+                                   aria-pressed="true">{{trans('admin_categories.add_category')}}</a><br><br>
                                 <div class="table-responsive">
                                     <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -31,29 +31,29 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{trans('Students_trans.title')}}</th>
-                                            <th>{{trans('Students_trans.about_page')}}</th>
-                                            <th>{{trans('Students_trans.image')}}</th>
+                                            <th>{{trans('admin_categories.title')}}</th>
+                                            <th>{{trans('admin_categories.about_page')}}</th>
+                                            <th>{{trans('admin_categories.image')}}</th>
 
-                                            <th>{{trans('Students_trans.status')}}</th>
-                                            <th>{{trans('Students_trans.admin_or_super_admin')}}</th>
-                                            <th>{{trans('Students_trans.likes')}}</th>
-                                            <th>{{trans('Students_trans.unlikes')}}</th>
+                                            <th>{{trans('admin_categories.status')}}</th>
+                                            <th>{{trans('admin_categories.admin_or_super_admin')}}</th>
+                                            <th>{{trans('admin_categories.likes')}}</th>
+                                            <th>{{trans('admin_categories.unlikes')}}</th>
 
-                                            <th>{{trans('Students_trans.Processes')}}</th>
+                                            <th>{{trans('admin_categories.Processes')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @isset($categories)
                                             @foreach($categories as $category)
-                                                <tr>
+                                                <tr  class="{{$category->status == (int)1?'opacity-bg-success text-dark' : 'opacity-bg-danger text-dark'}} ">
                                                 <td></td>
                                                 <td>{{$category->title}}</td>
                                                 <td>{{$category->about_page}}</td>
                                                 <td><img src="{{asset('assets/images_front/category/')}}/{{$category->image}}" height="100" width="200" /></td>
-                                                        <td>{{$category->status ===1 ? 'Active' : 'Un Active'}}</td>
-                                                <td>{{$category->admin_id > 0 ? 'Admin Is ' .$category->admin_id:(
-                                                $category->super_admin_id > 0 ? 'Super Admin Is ' .$category->super_admin_id:'')
+                                                <td class="{{$category->status == (int)1?'bg-success text-light' : 'bg-danger text-light'}} opacity_td">{{$category->status ===1 ? trans('admin_categories.active') : trans('admin_categories.deactive')}}</td>
+                                                <td>{{$category->admin_id > 0 ? trans('admin_categories.admin_is')  .$category->admin_id:(
+                                                $category->super_admin_id > 0 ? trans('admin_categories.super_admin_is')  .$category->super_admin_id:'')
                                                 }}</td>
                                                 <td>{{$category->likes}}</td>
                                                 <td>{{$category->unlikes}}</td>
@@ -61,14 +61,14 @@
                                                 <td>
                                                     <div class="dropdown show">
                                                         <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            العمليات
+                                                            {{trans('admin_categories.processes')}}
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
-                                                            <a class="dropdown-item" href="{{route('category.edit' , $category->id)}}"><i style="color:green" class="fa fa-edit"></i>&nbsp;  تعديل بيانات الطالب</a>
+{{--                                                            <a class="dropdown-item" href=""><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;    {{ trans('admin_categories.show') }}</a>--}}
+                                                            <a class="dropdown-item" href="{{route('category.edit' , $category->id)}}"><i style="color:green" class="fa fa-edit"></i>{{trans('admin_categories.edit')}}</a>
                                                             <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                     data-target="#delete{{ $category->id }}"
-                                                                    title="{{ trans('$category.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>
+                                                                    title="{{ trans('admin_categories.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;    {{ trans('admin_categories.Delete') }}</button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -86,7 +86,7 @@
                                                             <div class="modal-header">
                                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                                     id="exampleModalLabel">
-                                                                    {{ trans('$category.delete') }}
+                                                                    {{ trans('admin_categories.Delete') }}
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
@@ -97,14 +97,14 @@
                                                                 <form action="{{ route('category.destroy', $category->id) }}" method="post">
                                                                     {{ method_field('Delete') }}
                                                                     @csrf
-                                                                    {{ trans('newss.warning') }}
+
                                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                                            value="{{ $category->id }}">
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$category.close') }}</button>
+                                                                                data-dismiss="modal">{{ trans('admin_categories.close') }}</button>
                                                                         <button type="submit"
-                                                                                class="btn btn-danger">{{ trans('$category.submit') }}</button>
+                                                                                class="btn btn-danger">{{ trans('admin_categories.submit') }}</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -114,7 +114,7 @@
 
                                                 <script>
                                                     function destFunc() {
-                                                        var r = confirm('are you sure');
+                                                        var r = confirm('{{ trans("admin_categories.Are_you_sure_you_want_to_delete") }}');
                                                         if (r === true){
                                                             window.location.href ='{{route("category.destroy" , $category->id)}}';            }
                                                     }

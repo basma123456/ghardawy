@@ -24,7 +24,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::latest()->get();
+        $news = News::with('newsCats')->latest()->paginate(5);
         return view('admin.pages.news.index' , ['news' => $news]);
     }
 
@@ -62,8 +62,8 @@ class NewsController extends Controller
                 'super_admin_id' => $this->getGuard() === 'super-admin' ? $this->getGuardId() : null,
                 'admin_id' => $this->getGuard() === 'admin' ? $this->getGuardId() : null,
             ]);
-            toastr()->success(__("Congratulations ,  You Have Created A Ne Successfully"));
-            return redirect()->back();
+            toastr()->success(trans("global1.success_create"));
+            return redirect(route('news.index'));
         }
 
         catch (\Exception $e){
@@ -122,8 +122,8 @@ class NewsController extends Controller
                         'super_admin_id' => $this->getGuard() === 'super-admin' ? $this->getGuardId() : null,
                         'admin_id' => $this->getGuard() === 'admin' ? $this->getGuardId() : null,
                     ]);
-                    toastr()->success(__("Congratulations ,  You Have Created A Ne Successfully"));
-                    return redirect()->back();
+                    toastr()->success(trans("global1.success_create"));
+               return redirect(route('news.index'));
             }
 
             catch (\Exception $e){

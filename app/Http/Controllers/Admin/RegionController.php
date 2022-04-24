@@ -52,11 +52,11 @@ class RegionController extends Controller
             'super_admin_id' => $this->getGuard() === 'super-admin' ? $this->getGuardId() : null
         ]);
         if($region){
-            toastr()->success(__("global1.success_create"));
-            return view('admin.regions.index');
+            toastr()->success(trans("global1.success_create"));
+            return redirect(route('regions.index'));
         }else{
-            toastr()->error(__("global1.not_complete"));
-            return back();
+            toastr()->error(trans("global1.error"));
+            return redirect(route('regions.index'));
         }
     }
 
@@ -101,10 +101,10 @@ class RegionController extends Controller
                 $regionSuccess = $region->save();
                 if($regionSuccess){
                     toastr()->success(__("global1.success_create"));
-                    return view('admin.regions.index');
+                    return redirect(route('regions.index'));
                 }else{
                     toastr()->error(__("global1.not_completed"));
-                    return view('admin.regions.index');
+                    return redirect(route('regions.index'));
                 }
         }
 
@@ -125,7 +125,7 @@ class RegionController extends Controller
         try{
             $deletion = $region->delete();
             toastr()->error($this->deletion($deletion , trans('messages.deletion') , trans('messages.not_completed')));
-            return redirect()->back();
+            return redirect(route('regions.index'));
         }
         catch (\Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

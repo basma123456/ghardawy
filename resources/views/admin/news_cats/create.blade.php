@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_news_cats.Add_new_cat') }}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_news_cats.Add_Teacher') }}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -25,7 +25,7 @@
             </ul>
         </div>
     @endif
-    <h2 class="elegantshadow text-center" >News Categories</h2>
+    <h2 class="elegantshadow text-center" >{{ trans('admin_news_cats.News_Categories') }}</h2>
 
     <!-- row -->
     <div class="row">
@@ -46,25 +46,26 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{route('newscats.store')}}" method="post" enctype="multipart/form-data">
+
+                            <form action="{{\LaravelLocalization::localizeURL(route('newscats.store'))}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="title_ar">{{trans('Teacher_trans.title_ar')}}</label>
+                                        <label for="title_ar">{{trans('admin_news_cats.title_ar')}}</label>
                                         <input type="text" name="title_ar" class="form-control">
                                         @error('title_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="title_en">{{trans('Teacher_trans.title_en')}}</label>
+                                        <label for="title_en">{{trans('admin_news_cats.title_en')}}</label>
                                         <input type="text" name="title_en" class="form-control">
                                         @error('title_en')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="title_ru">{{trans('Teacher_trans.title_ru')}}</label>
+                                        <label for="title_ru">{{trans('admin_news_cats.title_ru')}}</label>
                                         <input type="text" name="title_ru" class="form-control">
                                         @error('title_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -80,11 +81,11 @@
 
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <label for="status">{{trans('Teacher_trans.status')}}</label>
+                                        <label for="status">{{trans('admin_news_cats.status')}}</label>
                                         <select class="custom-select my-1 mr-sm-2 form-control" style="height: max-content" name="status">
-                                            <option selected disabled>{{trans('Parent_trans.Choose')}} <span class="text-dark">&#x26DB;</span></option>
-                                            <option value="{{(int)0}}">{{trans('Parent_trans.deactive')}}</option>
-                                            <option value="{{(int)1}}">{{trans('Parent_trans.active')}}</option>
+                                            <option selected disabled>{{trans('admin_news_cats.Choose')}} <span class="text-dark">&#x26DB;</span></option>
+                                            <option value="{{(int)0}}">{{trans('admin_news_cats.deactive')}}</option>
+                                            <option value="{{(int)1}}">{{trans('admin_news_cats.active')}}</option>
 
                                         </select>
                                         @error('status')
@@ -98,7 +99,7 @@
 
 
                                 <br>
-                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('Parent_trans.Next')}}</button>
+                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('admin_news_cats.Next')}}</button>
                             </form>
                         </div>
                     </div>

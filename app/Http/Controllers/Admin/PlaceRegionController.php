@@ -12,6 +12,12 @@ use App\Traits\GuardTrait;
 use App\Traits\SearchSelectTrait;
 use Illuminate\Http\Request;
 
+//reprsents branches
+
+
+
+
+
 class PlaceRegionController extends Controller
 {
     use general;
@@ -22,20 +28,19 @@ class PlaceRegionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
+
+    /******************************************note****************************************************/
+    //note that this function adds a new branch which related to the place id given not to show index page
     public function index($place)
     {
         return view('admin.places.add_branch' , ['place'=>$place]);
     }
+    /***************************************************************************************************/
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
 
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -57,7 +62,7 @@ class PlaceRegionController extends Controller
             'super_admin_id' => $this->getGuard() === 'super-admin' ? $this->getGuardId() : null,
         ]);
 
-            return redirect()->back();
+            return redirect(url(route('places.index')));
     }
 
     /**
@@ -68,33 +73,18 @@ class PlaceRegionController extends Controller
      */
     public function editBranch($place , $placeRegionGet)
     {
-        $sumn = Place::sum('likes');
-        dd($sumn);
+//        $sumn = Place::sum('likes');
+//        dd($sumn);
         $placeRegion =  PlaceRegion::find($placeRegionGet);
         return view('admin.places.branch_edit' , ['place' => $place , 'placeRegion' => $placeRegion]);
-    }
-
-    public function updateBranch($place , $placeRegion)
-    {
-
     }
 
 
     public function showAll($place)
     {
 
-        $placeRegions = PlaceRegion::where('place_id',(int)$place)->get();
+        $placeRegions = PlaceRegion::with('regions')->with('places')->where('place_id',(int)$place)->get();
         return view('admin.places.showBranches' , ['place' => $place , 'placeRegions'=>$placeRegions]);
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PlaceRegion  $placeRegion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PlaceRegion $placeRegion)
-    {
-        //
     }
 
     /**
@@ -104,10 +94,10 @@ class PlaceRegionController extends Controller
      * @param  \App\Models\PlaceRegion  $placeRegion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PlaceRegion $placeRegion)
-    {
-        //
-    }
+//    public function update(Request $request, PlaceRegion $placeRegion)
+//    {
+//        //
+//    }
 
     /**
      * Remove the specified resource from storage.
@@ -115,8 +105,9 @@ class PlaceRegionController extends Controller
      * @param  \App\Models\PlaceRegion  $placeRegion
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyRegion($id)
     {
+
         try{
             $placeRegion = PlaceRegion::find($id);
             if(isset($placeRegion)) {

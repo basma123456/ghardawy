@@ -65,13 +65,13 @@
     </style>
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_main_page.main_page')}}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_main_page.list_students')}}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -86,14 +86,14 @@
     <br>
 
     <label class="btn btn-success">
-        <a href="{{url(route('main.create'))}}"> Add New One </a>
+        <a href="{{url(route('main.create'))}}"> {{trans('admin_main_page.Add_New_One')}} </a>
     </label>
     <label class="btn btn-primary">
-        <a href="{{url(route('main.edit' , $mains->id))}}"> Edit </a>
+        <a href="{{url(route('main.edit' , $mains->id))}}"> {{trans('admin_main_page.Edit')}} </a>
     </label>
-    <label class="btn btn-danger">
-        <a href="{{url(route('main.destroy' , $mains->id))}}"> Delete </a>
-    </label>
+{{--    <label class="btn btn-danger">--}}
+{{--        <a href="{{url(route('main.destroy' , $mains->id))}}"> {{trans('admin_main_page.Delete')}} </a>--}}
+{{--    </label>--}}
 
     <br>
     <br>
@@ -120,7 +120,7 @@
     <br>
     <br>
     <br>
-    <h3 class="alert alert-info w-50">Title1</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Title1')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -157,7 +157,7 @@
     </div>
 
     <br><br>
-    <h3 class="alert alert-info w-50">Title2</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Title2')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -197,7 +197,7 @@
     <br>
 
 
-    <h3 class="alert alert-info w-50">Top Description</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Top_Description')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -239,7 +239,7 @@
     <br>
 
 
-    <h3 class="alert alert-info w-50">Left Description</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Left_Description')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -280,7 +280,7 @@
     <br>
 
 
-    <h3 class="alert alert-info w-50">Middle Description</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Middle_Description')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -320,7 +320,7 @@
     <br>
 
 
-    <h3 class="alert alert-info w-50">Right Description</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Right_Description')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -360,7 +360,7 @@
     <br>
 
 
-    <h3 class="alert alert-info w-50">Website</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Website')}} </h3>
 
     <div class="row">
         <div class="column">
@@ -377,7 +377,7 @@
     <br>
     <br>
 
-    <h3 class="alert alert-info w-50">Categories</h3>
+    <h3 class="alert alert-info w-50"> {{trans('admin_main_page.Categories')}} </h3>
 
     <div class="row">
         @foreach($cats as $cat)

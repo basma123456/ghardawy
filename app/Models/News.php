@@ -14,6 +14,11 @@ class News extends UnicodeModel
     public $translatable = ['main_p' , 'first_p' , 'second_p'  , 'third_p' , 'label'];
     protected $guarded = [];
 
+
+    public function newsCats()
+    {
+        return $this->belongsTo(NewsCats::class , 'news_cat_id');
+    }
 }
 
 

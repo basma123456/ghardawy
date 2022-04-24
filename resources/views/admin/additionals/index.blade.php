@@ -2,7 +2,7 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{trans('main_trans.list_students')}}
+    {{trans('admin_additions.additions')}}
 @stop
 @endsection
 @section('page-header')
@@ -23,7 +23,7 @@
                         <div class="card card-statistics h-100">
                             <div class="card-body">
                                 <a href="{{route('additions.create')}}" class="btn btn-success btn-sm" role="button"
-                                   aria-pressed="true">{{trans('main_trans.add_student')}}</a><br><br>
+                                   aria-pressed="true">{{trans('admin_additions.add_addition')}}</a><br><br>
                                 <div class="table-responsive">
                                     <table id="datatable" class="table  table-hover table-sm table-bordered p-0"
                                            data-page-length="50"
@@ -31,23 +31,23 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{trans('Students_trans.title')}}</th>
-                                            <th>{{trans('Students_trans.about_page')}}</th>
+                                            <th>{{trans('admin_additions.title')}}</th>
+                                            <th>{{trans('admin_additions.desc')}}</th>
 
-                                            <th>{{trans('Students_trans.type')}}</th>
+                                            <th>{{trans('admin_additions.type')}}</th>
 
-                                            <th>{{trans('Students_trans.menu')}}</th>
+                                            <th>{{trans('admin_additions.place')}}</th>
 
-                                            <th>{{trans('Students_trans.status')}}</th>
-                                            <th>{{trans('Students_trans.admin_or_super_admin')}}</th>
+                                            <th>{{trans('admin_additions.status')}}</th>
+                                            <th>{{trans('admin_additions.admin_or_super_admin')}}</th>
 
-                                            <th>{{trans('Students_trans.Processes')}}</th>
+                                            <th>{{trans('admin_additions.Processes')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @isset($additionss)
                                             @foreach($additionss as $additions)
-                                                <tr>
+                                                <tr  class="{{$additions->status == (int)1?'opacity-bg-success text-dark' : 'opacity-bg-danger text-dark'}} " >
                                                     <td></td>
                                                     <td>{{$additions->title}}</td>
                                                     <td>{{$additions->desc}}</td>
@@ -55,20 +55,19 @@
 
                                                     <td>{{$additions->place_id }}</td>
 
-                                                    <td>{{$additions->status ===1 ? 'Active' : 'Un Active'}}</td>
-                                                    <td>{{$additions->admin_id > 0 ? 'Admin Is ' .$additions->admin_id:(
-                                                $additions->super_admin_id > 0 ? 'Super Admin Is ' .$additions->super_admin_id:'')
+                                                    <td class="{{$additions->status == (int)1?'bg-success text-light' : 'bg-danger text-light'}} opacity_td">{{$additions->status ===1 ? trans('admin_additions.active') : trans('admin_additions.deactive')}}</td>
+                                                    <td>{{$additions->admin_id > 0 ?  trans('admin_additions.admin_is') . ' ' .$additions->admin_id:(
+                                                $additions->super_admin_id > 0 ? trans('admin_additions.super_admin_is') . ' ' .$additions->super_admin_id:'')
                                                 }}</td>
                                                     <td>
                                                         <div class="dropdown show">
                                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                العمليات
+                                                                {{trans('admin_additions.operations')}}
                                                             </a>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                <a class="dropdown-item"  href="{{route('branches.show' , $additions->id)}}"><i style="color: #ffc107" class="far fa-eye "></i>&nbsp;  عرض بيانات الطالب</a>
                                                                 <button type="button" class="dropdown-item d-inline cursor" data-toggle="modal"
                                                                         data-target="#delete{{ $additions->id }}"
-                                                                        title="{{ trans('$additions.Delete') }}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  حذف بيانات الطالب</button>
+                                                                        title="{{trans('admin_additions.delete')}}"><i style="color: red" class="fa fa-trash"></i>&nbsp;  {{trans('admin_additions.delete')}}</button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -85,7 +84,7 @@
                                                             <div class="modal-header">
                                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                                     id="exampleModalLabel">
-                                                                    {{ trans('$additions.delete') }}
+                                                                    {{trans('admin_additions.delete')}}
                                                                 </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
@@ -96,12 +95,12 @@
                                                                 <form action="{{ route('additions.destroy', $additions->id) }}" method="post">
                                                                     {{ method_field('Delete') }}
                                                                     @csrf
-                                                                    {{ trans('newss.warning') }}
+
                                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                                            value="{{ $additions->id }}">
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{ trans('$additions.close') }}</button>
+                                                                                data-dismiss="modal">{{trans('admin_additions.close')}}</button>
                                                                         <button type="submit"
                                                                                 class="btn btn-danger">{{ trans('$additions.submit') }}</button>
                                                                     </div>

@@ -35,4 +35,50 @@ class SellerUpdate extends FormRequest
 
         ];
     }
+
+
+    public function messages()
+    {
+                    return [
+                        'Email.required' => trans('validation.required'),
+                        'Email.email' => trans('validation.email'),
+                        'Email.unique:sellers,email' => trans('validation.unique'),
+
+                        'Password.required' => trans('validation.required'),
+                        'Password.string' => trans('validation.string'),
+                        'Password.min:8' => trans('validation.min'),
+
+
+                        'Name_ar.required' => trans('validation.required'),
+                        'Name_ar.string' => trans('validation.string'),
+                        'Name_ar.max:100' => trans('validation.max'),
+
+                        'Name_en.required' => trans('validation.required'),
+                        'Name_en.string' => trans('validation.string'),
+                        'Name_en.max:100' => trans('validation.max'),
+
+                        'Name_ru.required' => trans('validation.required'),
+                        'Name_ru.string' => trans('validation.string'),
+                        'Name_ru.max:100' => trans('validation.max'),
+
+                        'Address_ar.required' => trans('validation.required'),
+                        'Address_ar.string' => trans('validation.string'),
+                        'Address_ar.max:220' => trans('validation.max'),
+
+                        'Address_en.required' => trans('validation.required'),
+                        'Address_en.string' => trans('validation.string'),
+                        'Address_en.max:220' => trans('validation.max'),
+
+                        'Address_ru.required' => trans('validation.required'),
+                        'Address_ru.string' => trans('validation.string'),
+                        'Address_ru.max:220' => trans('validation.max'),
+
+
+
+                        'joining_date.date' => trans('validation.date'),
+                        'status.in:0,1' => trans('validation.in'),
+
+                    ];
+
+    }
 }

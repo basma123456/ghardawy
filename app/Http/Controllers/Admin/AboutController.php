@@ -116,9 +116,9 @@ class AboutController extends Controller
 
                                             ]);
 
-        toastr()->success(__("global1.success_create"));
+        toastr()->success(trans("global1.success_create"));
 
-        return redirect()->back();
+        return redirect(route('about_page.index'));
 
     }
 
@@ -128,10 +128,6 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function show(About $about)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -206,9 +202,9 @@ class AboutController extends Controller
 
         ]);
 
-        toastr()->success(__("global1.success_create"));
+        toastr()->success(trans("global1.success_create"));
 
-        return redirect()->back();
+        return redirect(route('about_page.index'));
 
     }
 
@@ -218,8 +214,4 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function destroy(About $about)
-    {
-        //
-    }
 }

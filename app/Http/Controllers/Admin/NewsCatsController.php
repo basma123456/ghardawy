@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCatsRequest;
+use App\Models\News;
 use App\Models\NewsCats;
 use App\Traits\general;
 use App\Traits\GuardTrait;
@@ -56,7 +57,7 @@ class NewsCatsController extends Controller
                 'admin_id' => $this->getGuard() === 'admin' ? $this->getGuardId() : null,
             ]);
 
-            toastr()->success(__("global1.success_create"));
+            toastr()->success(trans("global1.success_create"));
             return redirect(route('newscatsadmins.index'));
         }
 
@@ -73,9 +74,10 @@ class NewsCatsController extends Controller
      * @param  \App\Models\NewsCats  $newsCats
      * @return \Illuminate\Http\Response
      */
-    public function show(NewsCats $newsCats)
+    public function show($id)
     {
-        //
+        $news = News::with('newsCats')->latest()->where('news_cat_id' , $id)->latest()->paginate(5);
+        return view('admin.pages.news.index' , ['news' => $news]);
     }
 
     /**
@@ -109,7 +111,7 @@ class NewsCatsController extends Controller
             $newsCats->admin_id = $this->getGuard() === 'admin' ? $this->getGuardId() : null;
 
             $newsCats->save();
-            toastr()->success(__('Updating Process Have Been Done Successfully'));
+            toastr()->success(trans("global1.success_create"));
            return redirect(route('newscats.index'));
         }
 
@@ -131,7 +133,7 @@ class NewsCatsController extends Controller
        try{
             $newsCats = NewsCats::find($id);
             $deletion = $newsCats->delete();
-           toastr()->error(__($this->deletion($deletion , 'You Have Deleted Successfully' , 'the deletion process have not been done yet')));
+           toastr()->error(__($this->deletion($deletion , trans('messages.deletion') ,  trans('messages.not_completed'))));
             return redirect()->back();
        }
 

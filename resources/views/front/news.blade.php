@@ -36,11 +36,11 @@
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="txt-col-main txt-size-47 "> <i class="fa fa-arrow-left"></i> </span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">{{trans('front_news.previous')}}</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                 <span class="txt-col-main txt-size-47 "> <i class="fa fa-arrow-right"></i> </span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">{{trans('front_news.next')}}</span>
             </button>
         </div>
     </div>

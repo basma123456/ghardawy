@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MainRequest;
 use App\Models\About;
 use App\Models\Category;
 use App\Models\Main;
@@ -28,7 +29,6 @@ class MainPageController extends Controller
 
         $mains = Main::latest()->first();
         $cats =$mains->cats();
-        $cats = Category::latest()->get();
         return view('admin.pages.main_page.index' , ['mains' => $mains , 'cats' => $cats]);
     }
 
@@ -50,7 +50,7 @@ class MainPageController extends Controller
      * @return \Illuminate\Http\Response
 
      */
-    public function store(Request $request)
+    public function store(MainRequest $request)
     {
         try {
 
@@ -89,7 +89,7 @@ class MainPageController extends Controller
                 ->update(['at_front_page' => 1]);
 
 
-            toastr()->success(__("global1.success_create"));
+            toastr()->success(trans("global1.success_create"));
 
             return redirect()->back();
         }
@@ -100,17 +100,6 @@ class MainPageController extends Controller
 
         }
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Main  $main
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Main $main)
-    {
-        //
     }
 
     /**
@@ -171,9 +160,9 @@ class MainPageController extends Controller
 
 
         //dd($main->left_upper_cat);
-        toastr()->success(__("global1.success_create"));
+        toastr()->success(trans("global1.success_create"));
 
-        return redirect()->back();
+        return redirect('super-admin/main');
 
     }
 
@@ -183,8 +172,9 @@ class MainPageController extends Controller
      * @param  \App\Models\Main  $main
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Main $main)
-    {
-        //
-    }
+//    public function destroy(Main $main)
+//    {
+//        $main->destroy();
+//        redirect()->back();
+//    }
 }

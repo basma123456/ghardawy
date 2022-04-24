@@ -1,14 +1,14 @@
 @extends('layouts.master')
 @section('css')
     @toastr_css
-@section('government')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+@section('title')
+    {{ trans('admin_regions.edit_region') }}
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('Teacher_trans.Add_Teacher') }}
+    {{ trans('admin_regions.Add_Teacher') }}
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -44,20 +44,21 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                            <form action="{{route('regions.update', $region->id)}}" method="post" enctype="multipart/form-data">
+
+                            <form action="{{ \LaravelLocalization::localizeURL(route('regions.update', $region->id))}}" method="post" enctype="multipart/form-data">
                                 @method('Put')
                                 @csrf
                                 <input name="id" type="hidden" value="{{$region->id}}"  />
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="government_ar">{{trans('Teacher_trans.government_ar')}}</label>
+                                        <label for="government_ar">{{trans('admin_regions.government_ar')}}</label>
                                         <input type="text"  value="{{old('government_ar', $region->getTranslation('government', 'ar'))}}" name="government_ar" class="form-control">
                                         @error('government_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="government_en">{{trans('Teacher_trans.government_en')}}</label>
+                                        <label for="government_en">{{trans('admin_regions.government_en')}}</label>
                                         <input type="text"  value="{{old('government_en', $region->getTranslation('government', 'en'))}}" name="government_en" class="form-control">
                                         @error('government_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -65,7 +66,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="government_ru">{{trans('Teacher_trans.government_ru')}}</label>
+                                        <label for="government_ru">{{trans('admin_regions.government_ru')}}</label>
                                         <input type="text"  value="{{old('government_ru', $region->getTranslation('government', 'ru'))}}" name="government_ru" class="form-control">
                                         @error('government_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -79,14 +80,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="city_ar">{{trans('Teacher_trans.city_ar')}}</label>
+                                        <label for="city_ar">{{trans('admin_regions.city_ar')}}</label>
                                         <input name="city_ar"   class="form-control" value="{{old('city_ar' ,$region->getTranslation('city' , 'ar'))}}" />
                                         @error('city_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="city_en">{{trans('Teacher_trans.city_en')}}</label>
+                                        <label for="city_en">{{trans('admin_regions.city_en')}}</label>
                                         <input name="city_en"  class="form-control" value="{{old('city_en',$region->getTranslation('city' , 'en'))}}" />
                                         @error('city_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -94,7 +95,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="city_ru">{{trans('Teacher_trans.city_ru')}}</label>
+                                        <label for="city_ru">{{trans('admin_regions.city_ru')}}</label>
                                         <input name="city_ru" class="form-control" value="{{old('city_ru',$region->getTranslation('city' , 'ru'))}}" />
                                         @error('city_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -108,14 +109,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="district_ar">{{trans('Teacher_trans.district_ar')}}</label>
+                                        <label for="district_ar">{{trans('admin_regions.district_ar')}}</label>
                                         <input name="district_ar"   class="form-control" value="{{old('district_ar' ,$region->getTranslation('district' , 'ar'))}}" />
                                         @error('district_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="district_en">{{trans('Teacher_trans.district_en')}}</label>
+                                        <label for="district_en">{{trans('admin_regions.district_en')}}</label>
                                         <input name="district_en"  class="form-control" value="{{old('district_en',$region->getTranslation('district' , 'en'))}}" />
                                         @error('district_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -123,7 +124,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="district_ru">{{trans('Teacher_trans.district_ru')}}</label>
+                                        <label for="district_ru">{{trans('admin_regions.district_ru')}}</label>
                                         <input name="district_ru" class="form-control" value="{{old('district_ru',$region->getTranslation('district' , 'ru'))}}" />
                                         @error('district_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -137,14 +138,14 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="desc_ar">{{trans('Teacher_trans.desc_ar')}}</label>
+                                        <label for="desc_ar">{{trans('admin_regions.desc_ar')}}</label>
                                         <textarea name="desc_ar" class="form-control" rows="4">{{old('desc_ar',$region->getTranslation('desc' , 'ar'))}}</textarea>
                                         @error('desc_ar')
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                     <div class="col">
-                                        <label for="desc_en">{{trans('Teacher_trans.desc_en')}}</label>
+                                        <label for="desc_en">{{trans('admin_regions.desc_en')}}</label>
                                         <textarea name="desc_en" class="form-control" rows="4">{{old('desc_en',$region->getTranslation('desc' , 'en'))}}</textarea>
                                         @error('desc_en')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -152,7 +153,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <label for="desc_ru">{{trans('Teacher_trans.desc_ru')}}</label>
+                                        <label for="desc_ru">{{trans('admin_regions.desc_ru')}}</label>
                                         <textarea name="desc_ru" class="form-control" rows="4">{{old('desc_ru',$region->getTranslation('desc' , 'ru'))}}</textarea>
                                         @error('desc_ru')
                                         <div class="alert alert-danger">{{$message}}</div>
@@ -168,7 +169,7 @@
 
 
                                 <br>
-                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('Parent_trans.Next')}}</button>
+                                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">{{trans('admin_regions.Next')}}</button>
                             </form>
                         </div>
                     </div>

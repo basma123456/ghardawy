@@ -51,4 +51,47 @@ class NewsRequest extends FormRequest
 
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'main_p_ar.required' => trans('validation.required') ,
+            'main_p_ar.string' => trans('validation.string') ,
+            'main_p_ar.max:75' => trans('validation.max') ,
+            'main_p_ar.min:4' => trans('validation.min') ,
+
+            'main_p_en.required' => trans('validation.required') ,
+            'main_p_en.string' => trans('validation.string') ,
+            'main_p_en.max:75' => trans('validation.max') ,
+            'main_p_en.min:4' => trans('validation.min') ,
+
+            'main_p_ru.required' => trans('validation.required') ,
+            'main_p_ru.string' => trans('validation.string') ,
+            'main_p_ru.max:75' => trans('validation.max') ,
+            'main_p_ru.min:4' => trans('validation.min') ,
+
+
+            'label_ar.required' => trans('validation.required') ,
+            'label_ar.string' => trans('validation.string') ,
+            'label_ar.max:60' => trans('validation.max') ,
+            'label_ar.min:4' => trans('validation.min') ,
+
+            'label_en.required' => trans('validation.required') ,
+            'label_en.string' => trans('validation.string') ,
+            'label_en.max:60' => trans('validation.max') ,
+            'label_en.min:4' => trans('validation.min') ,
+
+            'label_ru.required' => trans('validation.required') ,
+            'label_ru.string' => trans('validation.string') ,
+            'label_ru.max:60' => trans('validation.max') ,
+            'label_ru.min:4' => trans('validation.min') ,
+
+            'image.required_without:id' => trans('validation.required_without') ,
+            'image.image' => trans('validation.image') ,
+            'image.mimes:jpeg,png,jpg,gif,svg' => trans('validation.mimes') ,
+
+            'news_cat_id.exists:news_cats,id' => trans('validation.exists') ,
+
+        ];
+    }
 }
