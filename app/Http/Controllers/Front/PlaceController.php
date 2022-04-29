@@ -11,6 +11,7 @@ use App\Models\LikesUnlikesPlaces;
 use App\Models\Place;
 use App\Traits\GuardTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -63,21 +64,19 @@ class PlaceController extends Controller
 
 
         $me = auth()->id();
-//        dd(auth()->user()->likedUnlikedPlaces->where('place_id' , 60)->get());
-        $myPlace =  Place::with
-        (['users_liked_places' =>
-            function($query) use ($me){
-                $query->where('user_id' , $me)->latest();
-            }
-
-        ])->latest()->first();
 
 
-
-        DB::beginTransaction();
+//        DB::beginTransaction();
         try {
+            $user_id = Auth::id();
 
-            $place = Place::with('comments')->with('users_liked_places')->find($id);
+
+            $place = Place::with('comments')-> with(['users_liked_places' =>
+                function($query) use ($id , $user_id ){
+                    $query->where('place_id' , $id) -> where('user_id' , $user_id);
+                }
+
+            ])->find($id);
 
             $comment = new Comment();
             $comment->desc = $request->comment;
@@ -93,70 +92,46 @@ class PlaceController extends Controller
 
             $comment->place()->associate($place);
 
-
-
             /*****************************likes part********************************/
             //it is acheckpoint input so i use the same name --likes-- for both inputs -likes input- and -unlikes input-
             $likedStatus = $request->likes == (int)1 ? (int)1 : (int)0;
             $unlikedStatus = $request->likes == (int)0 ? (int)1 : (int)0;
 
-            $detaching = $place->users_liked_places()->detach(auth()->id(), ['user_id' => auth()->id(), 'place_id' => $id , 'liked_status' => $likedStatus , 'unliked_status' => $unlikedStatus]);
-            $attaching = $place->users_liked_places()->attach(auth()->id(), ['user_id' => auth()->id(), 'place_id' => $id ,'liked_status' => $likedStatus , 'unliked_status' => $unlikedStatus]);
-            /*****************************likes part********************************/
 
-            if(isset($myPlace->users_liked_places[0]->pivot->liked_status)){
-                if($likedStatus == 1 && $place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places[0]->pivot->liked_status == 0 ){
-                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + $likedStatus],
-                        ['likes' => $place->category->getOriginal('likes') + $unlikedStatus]);
-                }elseif($unlikedStatus == 1  && $place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places[0]->pivot->liked_status ==1 ){
-                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1 && $place->category->getOriginal('likes') > 0]
+
+            if(isset($place->users_liked_places[0]->pivot->liked_status)) {
+                $detaching = $place->users_liked_places()->detach(auth()->id(), ['user_id' => auth()->id(), 'place_id' => $id]);
+                $attaching = $place->users_liked_places()->attach(auth()->id(), ['user_id' => auth()->id(), 'place_id' => $id, 'liked_status' => $likedStatus, 'unliked_status' => $unlikedStatus]);
+
+//
+                $place->push();
+                if ($request->likes == (int)1 && $place->users_liked_places[0]->pivot->getOriginal('liked_status') == (int)0) {
+                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + 1]);
+
+                } elseif ($request->likes == (int)0 && $place->users_liked_places[0]->pivot->getOriginal('liked_status') == (int)1) {
+                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1]
+
                     );
-                }elseif(!$place->users_liked_places->contains(auth()->id()) ){
 
-                    $returnedVal = $place->category->getOriginal('likes') - $unlikedStatus;
-                    if($returnedVal > -1) {
-                        $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - $unlikedStatus, 'likes' => $place->category->getOriginal('likes') + $likedStatus]
-                        );
-                    }
                 }
-            }elseif($likedStatus == 1){
-                $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1 ]);
 
-            }
-            $place->push();
-            DB::commit();
+            } else{
+                $attaching = $place->users_liked_places()->attach(auth()->id(), ['user_id' => auth()->id(), 'place_id' => $id ,'liked_status' => $likedStatus , 'unliked_status' => $unlikedStatus]);
 
-
-
-
-            /****************/
-
-            if($likedStatus == 1 && !$place->users_liked_places->contains(auth()->id())) {
-            }elseif($unlikedStatus == 1 && $place->users_liked_places->contains(auth()->id()) && $place->users_liked_places->liked_status ==1 ){
-
-            }elseif ($likedStatus == 1 && $place->users_liked_places->contains(auth()->id()) && $place->users_liked_places->liked_status ==0 ){
-                $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + 1]
+                $num = $request->likes == 0 ? -1 : 1;
+                 $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + $num]
                 );
 
+
             }
 
-
-            /**************/
-
+//            DB::commit();
 
             return redirect()->back();
-//    dd($r->pivot->liked_status);
-//            $comment->place->likes = $comment->place->likes + $comment->likes;
-//            $comment->place->unlikes = $comment->place->unlikes + $comment->unlikes;
-
-//        $comment->place->save();
-
-//        $comment->comments()->attach( $product->id , ['qty' => $request->total_qty , 'sale_unit_id' => $product->sale_unit_id ] );
-//        $sale->products()->attach( $product->id , ['qty' => $request->total_qty , 'sale_unit_id' => $product->sale_unit_id ] );
         }
 
         catch (\Exception $e) {
-            DB::rollBack();
+//            DB::rollBack();
             return redirect()->back()->withErrors(['error' => $e->getMessage()] );
 
         }

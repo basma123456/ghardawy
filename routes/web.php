@@ -16,36 +16,36 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 */
 
-    //Route::get('/login', 'HomeController@index')->middleware('guest')->name('login.show');
+//Route::get('/login', 'HomeController@index')->middleware('guest')->name('login.show');
 
 
-    Route::post('/login/loginByPhone', 'Auth\LoginController@loginByPhone')->name('login.email.phone')->middleware('guest');
+Route::post('/login/loginByPhone', 'Auth\LoginController@loginByPhone')->name('login.email.phone')->middleware('guest');
 
-    Route::get('/login/seller', 'Auth\LoginController@showSellerLoginForm')->middleware('guest:seller');
-    Route::post('/login/seller', 'Auth\LoginController@sellerLogin')->middleware('guest:seller');
-    /***********************************/
-    Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->middleware('guest:admin');
-    Route::post('/login/admin', 'Auth\LoginController@adminLogin')->middleware('guest:admin');
-    /****************************/
-    Route::get('/login/super-admin', 'Auth\LoginController@showSuperAdminLoginForm')->middleware('guest:super-admin');
-    Route::post('/login/super-admin', 'Auth\LoginController@superAdminLogin')->middleware('guest:super-admin');
-    /**************************/
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/logout' , 'HomeController@logout')->name('logout');
-    ############################################################################################
-
-
-
+Route::get('/login/seller', 'Auth\LoginController@showSellerLoginForm')->middleware('guest:seller');
+Route::post('/login/seller', 'Auth\LoginController@sellerLogin')->middleware('guest:seller');
+/***********************************/
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->middleware('guest:admin');
+Route::post('/login/admin', 'Auth\LoginController@adminLogin')->middleware('guest:admin');
+/****************************/
+Route::get('/login/super-admin', 'Auth\LoginController@showSuperAdminLoginForm')->middleware('guest:super-admin');
+Route::post('/login/super-admin', 'Auth\LoginController@superAdminLogin')->middleware('guest:super-admin');
+/**************************/
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout' , 'HomeController@logout')->name('logout');
+############################################################################################
 
 
 
-    Auth::routes();
 
-    Route::get('/perms' , function (){
-        return view('admin.permessions');
-    });
-    ######################################customer start############################################################
-    Route::group(
+
+
+Auth::routes();
+
+Route::get('/perms' , function (){
+    return view('admin.permessions');
+});
+######################################customer start############################################################
+Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
@@ -82,18 +82,18 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
     ################################Admin start###################################
-        Route::group(['prefix'=> 'admin' , 'middleware' => 'auth:admin'] , function (){
+    Route::group(['prefix'=> 'admin' , 'middleware' => 'auth:admin'] , function (){
 
-            Route::resource('/roles' , 'Admin\RoleController');
-            Route::resource('/sellers' , 'Admin\SellerController');
-            Route::get('/unseen', 'Admin\SellerController@unseenSellers');
-            Route::get('/un_active', 'Admin\SellerController@unActiveSellers');
-            Route::get('/active', 'Admin\SellerController@ActiveSellers');
-            Route::get('/', function () {return view('admin.dashboard');});
-            Route::get('/main', function () {
-                return view('admin.main');
-            })->middleware('auth:seller');
-        });
+        Route::resource('/roles' , 'Admin\RoleController');
+        Route::resource('/sellers' , 'Admin\SellerController');
+        Route::get('/unseen', 'Admin\SellerController@unseenSellers');
+        Route::get('/un_active', 'Admin\SellerController@unActiveSellers');
+        Route::get('/active', 'Admin\SellerController@ActiveSellers');
+        Route::get('/', function () {return view('admin.dashboard');});
+        Route::get('/main', function () {
+            return view('admin.main');
+        })->middleware('auth:seller');
+    });
     ####################################Admin end###############################
 
 
@@ -195,4 +195,3 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
     ####################################search routes################################
 });
-
