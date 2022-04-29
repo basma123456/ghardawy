@@ -32,65 +32,6 @@ class PlaceController extends Controller
                 $query->where('status' , $one)->latest()->limit(2);
             }
         ])->where('status' , 1)->find($id);
-         $place != null ? $photos = $place->photos() :$photos = null;
-         if(isset( $place->comments)) {
-             $place->comments->load('user');
-         }
-         $additions = Additional::with('place')->where('status' , 1)->latest()->get();
-
-            if($place != null && $photos != null) {
-                return view('front.place', ['place' => $place, 'photos' => $photos , 'additions' => $additions , 'id'=>$id ]);
-            }else{
-                return redirect('main');
-            }
-        }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
-
-
-
-<?php
-
-namespace App\Http\Controllers\Front;
-
-    use App\Http\Controllers\Controller;
-    use App\Http\Requests\FrontCommentRequest;
-    use App\Models\Additional;
-    use App\Models\Category;
-    use App\Models\Comment;
-    use App\Models\LikesUnlikesPlaces;
-    use App\Models\Place;
-    use App\Traits\GuardTrait;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Database\Eloquent\Builder;
-
-
-class PlaceController extends Controller
-{
-    use GuardTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($id)
-    {
-
-        $one = 1;
-        $place = Place::with('users_liked_places')->with(['comments' =>
-            function($query) use ($one){
-                $query->where('status' , $one)->latest()->limit(2);
-            }
-        ])->where('status' , 1)->find($id);
         $place != null ? $photos = $place->photos() :$photos = null;
         if(isset( $place->comments)) {
             $place->comments->load('user');
@@ -168,11 +109,15 @@ class PlaceController extends Controller
                     $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') + $likedStatus],
                         ['likes' => $place->category->getOriginal('likes') + $unlikedStatus]);
                 }elseif($unlikedStatus == 1  && $place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places[0]->pivot->liked_status ==1 ){
-                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1]
+                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1 && $place->category->getOriginal('likes') > 0]
                     );
-                }elseif(!$place->users_liked_places->contains(auth()->id()) && $myPlace->users_liked_places->pivot->likes_status == 0){
-                    $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - $unlikedStatus , 'likes' => $place->category->getOriginal('likes') + $likedStatus]
-                    );
+                }elseif(!$place->users_liked_places->contains(auth()->id()) ){
+
+                    $returnedVal = $place->category->getOriginal('likes') - $unlikedStatus;
+                    if($returnedVal > -1) {
+                        $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - $unlikedStatus, 'likes' => $place->category->getOriginal('likes') + $likedStatus]
+                        );
+                    }
                 }
             }elseif($likedStatus == 1){
                 $myCat = Category::where('id', $place->category->id)->update(['likes' => $place->category->getOriginal('likes') - 1 ]);
@@ -218,7 +163,5 @@ class PlaceController extends Controller
 
 
     }
-
-}
 
 }
