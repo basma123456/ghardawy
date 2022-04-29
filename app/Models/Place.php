@@ -94,16 +94,35 @@ use Illuminate\Database\Eloquent\Builder;
                 ->withPivot('liked_status');
         }
 
-        public function likes_unlikes()
+
+
+
+        public function users_liked_places_likes()
         {
-//            return $this->hasMany(LikesUnlikesPlaces::class , 'place_id');
-            return LikesUnlikesPlaces::where('place_id' , $this->id)->count();
+            return $this->belongsToMany(User::class , 'liked_unliked_places' ,'place_id' , 'user_id')
+                ->withPivot('liked_status')->where('liked_unliked_places.liked_status' , 1);
         }
 
-        public function liked_unliked_places()
-        {
-            return $this->hasMany(LikesUnlikesPlaces::class , 'place_id');
-        }
+
+
+
+
+
+
+
+
+
+
+//        public function likes_unlikes()
+//        {
+////            return $this->hasMany(LikesUnlikesPlaces::class , 'place_id');
+//            return LikesUnlikesPlaces::where('place_id' , $this->id)->count();
+//        }
+//
+//        public function liked_unliked_places()
+//        {
+//            return $this->hasMany(LikesUnlikesPlaces::class , 'place_id');
+//        }
     /*****************liked and unliked related functions**********/
         /*****************liked and unliked related functions*********
          * @return mixed
